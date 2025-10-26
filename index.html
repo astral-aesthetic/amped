@@ -37,6 +37,20 @@
         }
         return originalFetch(url, options);
       };
+
+      // Fix image sources
+      const originalImageSrc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+      Object.defineProperty(HTMLImageElement.prototype, 'src', {
+        get: function() {
+          return originalImageSrc.get.call(this);
+        },
+        set: function(value) {
+          if (typeof value === 'string' && value.startsWith('/') && !value.startsWith(basePath) && !value.startsWith('data:')) {
+            value = basePath + value;
+          }
+          originalImageSrc.set.call(this, value);
+        }
+      });
     })();
   </script>
   <script type="module" crossorigin src="./assets/index-B_LgNMPL.js"></script>
