@@ -26,20 +26,40 @@
     }(window.location))
   </script>
   <script>
-    // Fix asset requests for GitHub Pages subdirectory deployment
+    // Fix asset paths for GitHub Pages deployment
+    // This handles both relative paths (./models/x.glb) and absolute paths (/models/x.glb)
     (function() {
-      // Derive base path for GitHub Pages project sites ("/repo-name")
-      var pathSegs = window.location.pathname.split('/').filter(Boolean);
-      var basePath = pathSegs.length ? '/' + pathSegs[0] : '';
+      console.log('[Asset Fixer] Initializing for GitHub Pages deployment');
+      
+      // Get the base URL for the site (handles both root and subdirectory deployments)
+      var base = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
+      console.log('[Asset Fixer] Base URL:', base);
 
-      // Helper to fix URLs
+      // Helper to fix URLs - convert relative/absolute paths to full URLs
       function fixUrl(url) {
         if (typeof url === 'string') {
-          if (url.startsWith('/') && !url.startsWith(basePath) && !url.startsWith('data:') && !url.startsWith('blob:')) {
-            return basePath + url;
+          // Skip data URLs, blob URLs, and already-absolute URLs
+          if (url.startsWith('data:') || url.startsWith('blob:') || url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
           }
+          
+          // Handle relative paths starting with ./
+          if (url.startsWith('./')) {
+            var fixed = base + url.slice(2);
+            console.log('[Asset Fixer] Fixed relative:', url, '→', fixed);
+            return fixed;
+          }
+          
+          // Handle absolute paths starting with /
+          if (url.startsWith('/')) {
+            var fixed = window.location.origin + url;
+            console.log('[Asset Fixer] Fixed absolute:', url, '→', fixed);
+            return fixed;
+          }
+          
           return url;
         }
+        
         // Support Request objects for fetch
         if (url && typeof url === 'object' && 'url' in url) {
           var fixed = fixUrl(String(url.url || ''));
@@ -47,6 +67,7 @@
             return new Request(fixed, url);
           }
         }
+        
         return url;
       }
 
@@ -61,7 +82,9 @@
       XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
         try {
           url = fixUrl(url);
-        } catch (e) {}
+        } catch (e) {
+          console.error('[Asset Fixer] XHR fix error:', e);
+        }
         return originalXHROpen.apply(this, [method, url, async, user, password]);
       };
 
@@ -84,6 +107,8 @@
         }
         return originalSetAttribute.call(this, name, value);
       };
+      
+      console.log('[Asset Fixer] Setup complete - monitoring fetch, XHR, img.src, and setAttribute');
     })();
   </script>
   <!-- Runtime Three.js material override hook for matte gunner model -->
@@ -145,8 +170,8 @@
   </script>
   
   <!-- Cache-busting query to avoid stale GH Pages caches after hot edits -->
-  <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251035"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251035">
+  <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251038"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251038">
 </head>
 
 <body>
