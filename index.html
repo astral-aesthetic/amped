@@ -183,6 +183,49 @@
   <!-- Cache-busting query to avoid stale GH Pages caches after hot edits -->
   <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251042"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251042">
+  
+  <!-- User Auth Check - Show Dashboard if Not Logged In -->
+  <script>
+    (function() {
+      // Check if user is logged in by looking for user data in localStorage
+      const userStorageKey = 'amped_user_session';
+      const userData = localStorage.getItem(userStorageKey);
+      
+      // Also check for React Query/State persistence
+      const reactQueryCache = localStorage.getItem('persist:root');
+      
+      let isLoggedIn = false;
+      if (userData) {
+        try {
+          const user = JSON.parse(userData);
+          isLoggedIn = !!(user && user.username);
+        } catch(e) {
+          // If parsing fails, not logged in
+        }
+      }
+      
+      // Also check if there's user data in the React state
+      if (!isLoggedIn && reactQueryCache) {
+        try {
+          const stateData = JSON.parse(reactQueryCache);
+          if (stateData && stateData.authState) {
+            const authState = JSON.parse(stateData.authState);
+            isLoggedIn = !!(authState && authState.user && authState.user.username);
+          }
+        } catch(e) {
+          // If parsing fails, not logged in
+        }
+      }
+      
+      // If not logged in and not already on dashboard, redirect
+      if (!isLoggedIn && !window.location.pathname.includes('dashboard')) {
+        // Use a small delay to ensure page hasn't started rendering
+        setTimeout(function() {
+          window.location.replace('./dashboard.html');
+        }, 100);
+      }
+    })();
+  </script>
 </head>
 
 <body>
