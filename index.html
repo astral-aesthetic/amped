@@ -99,6 +99,26 @@
         return originalSetAttribute.call(this, name, value);
       };
       
+      // Also intercept Three.js FileLoader if it exists (will be set after Three.js loads)
+      var checkThreeJS = setInterval(function() {
+        if (window.THREE && window.THREE.FileLoader) {
+          clearInterval(checkThreeJS);
+          console.log('[Asset Fixer] Three.js detected, patching FileLoader');
+          
+          var originalLoad = window.THREE.FileLoader.prototype.load;
+          window.THREE.FileLoader.prototype.load = function(url, onLoad, onProgress, onError) {
+            var fixedUrl = fixUrl(url);
+            console.log('[Asset Fixer] FileLoader:', url, '→', fixedUrl);
+            return originalLoad.call(this, fixedUrl, onLoad, onProgress, onError);
+          };
+        }
+      }, 100);
+      
+      // Stop checking after 10 seconds
+      setTimeout(function() {
+        clearInterval(checkThreeJS);
+      }, 10000);
+      
       console.log('[Asset Fixer] Ready - all asset requests will be intercepted');
     })();
   </script>
@@ -161,8 +181,8 @@
   </script>
   
   <!-- Cache-busting query to avoid stale GH Pages caches after hot edits -->
-  <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251039"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251039">
+  <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251040"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251040">
 </head>
 
 <body>
