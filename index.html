@@ -27,79 +27,70 @@
   </script>
   <script>
     // Fix asset paths for GitHub Pages deployment
-    // This handles both relative paths (./models/x.glb) and absolute paths (/models/x.glb)
     (function() {
-      console.log('[Asset Fixer] Initializing for GitHub Pages deployment');
+      console.log('[Asset Fixer] Initializing asset path interceptor');
       
-      // Get the base URL for the site (handles both root and subdirectory deployments)
-      var base = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, '/');
-      console.log('[Asset Fixer] Base URL:', base);
+      // Get base path - for root deployment this should be just the origin
+      var basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
+      if (basePath === '/') basePath = '';
+      console.log('[Asset Fixer] Base path:', basePath || '(root)');
 
-      // Helper to fix URLs - convert relative/absolute paths to full URLs
+      // Helper to fix URLs
       function fixUrl(url) {
         if (typeof url === 'string') {
-          // Skip data URLs, blob URLs, and already-absolute URLs
+          // Skip special protocols
           if (url.startsWith('data:') || url.startsWith('blob:') || url.startsWith('http://') || url.startsWith('https://')) {
             return url;
           }
           
-          // Handle relative paths starting with ./
-          if (url.startsWith('./')) {
-            var fixed = base + url.slice(2);
-            console.log('[Asset Fixer] Fixed relative:', url, '→', fixed);
-            return fixed;
-          }
-          
-          // Handle absolute paths starting with /
+          // Convert absolute paths to use base path
           if (url.startsWith('/')) {
-            var fixed = window.location.origin + url;
-            console.log('[Asset Fixer] Fixed absolute:', url, '→', fixed);
+            var fixed = basePath + url;
+            console.log('[Asset Fixer]', url, '→', fixed);
             return fixed;
           }
           
           return url;
         }
         
-        // Support Request objects for fetch
+        // Support Request objects
         if (url && typeof url === 'object' && 'url' in url) {
-          var fixed = fixUrl(String(url.url || ''));
-          if (fixed !== url.url) {
-            return new Request(fixed, url);
+          var fixedUrl = fixUrl(String(url.url || ''));
+          if (fixedUrl !== url.url) {
+            return new Request(fixedUrl, url);
           }
         }
         
         return url;
       }
 
-      // Fix fetch
+      // Intercept fetch
       var originalFetch = window.fetch;
       window.fetch = function(url, options) {
         return originalFetch(fixUrl(url), options);
       };
 
-      // Fix XMLHttpRequest (used by Three.js FileLoader)
+      // Intercept XMLHttpRequest (used by Three.js)
       var originalXHROpen = XMLHttpRequest.prototype.open;
       XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
-        try {
-          url = fixUrl(url);
-        } catch (e) {
-          console.error('[Asset Fixer] XHR fix error:', e);
-        }
-        return originalXHROpen.apply(this, [method, url, async, user, password]);
+        url = fixUrl(url);
+        return originalXHROpen.call(this, method, url, async, user, password);
       };
 
-      // Fix image sources via property
+      // Intercept image src
       var originalImageSrc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
-      Object.defineProperty(HTMLImageElement.prototype, 'src', {
-        get: function() {
-          return originalImageSrc.get.call(this);
-        },
-        set: function(value) {
-          originalImageSrc.set.call(this, fixUrl(value));
-        }
-      });
+      if (originalImageSrc) {
+        Object.defineProperty(HTMLImageElement.prototype, 'src', {
+          get: function() {
+            return originalImageSrc.get.call(this);
+          },
+          set: function(value) {
+            originalImageSrc.set.call(this, fixUrl(value));
+          }
+        });
+      }
 
-      // Fix setAttribute for all elements
+      // Intercept setAttribute
       var originalSetAttribute = Element.prototype.setAttribute;
       Element.prototype.setAttribute = function(name, value) {
         if ((name === 'src' || name === 'href') && this.tagName !== 'SCRIPT' && this.tagName !== 'LINK') {
@@ -108,7 +99,7 @@
         return originalSetAttribute.call(this, name, value);
       };
       
-      console.log('[Asset Fixer] Setup complete - monitoring fetch, XHR, img.src, and setAttribute');
+      console.log('[Asset Fixer] Ready - all asset requests will be intercepted');
     })();
   </script>
   <!-- Runtime Three.js material override hook for matte gunner model -->
@@ -170,8 +161,8 @@
   </script>
   
   <!-- Cache-busting query to avoid stale GH Pages caches after hot edits -->
-  <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251038"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251038">
+  <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251039"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251039">
 </head>
 
 <body>
