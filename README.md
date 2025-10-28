@@ -1,1 +1,1 @@
-# Amped
+# Amped Gaming Platform
