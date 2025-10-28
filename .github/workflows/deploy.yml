@@ -34,6 +34,17 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Commit built files
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add dist/
+          git commit -m "chore: rebuild dist [skip ci]" || true
+
+      - name: Push built files
+        if: github.ref == 'refs/heads/gh-pages'
+        run: git push origin gh-pages
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -50,4 +61,5 @@ jobs:
     if: always()
     steps:
       - name: Deployment Status
-        run: echo "Deployment completed with status: ${{ job.status }}"
+        run: |
+          echo "Deployment completed with status: ${{ job.status }}"
