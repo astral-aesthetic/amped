@@ -4,15 +4,21 @@
   "description": "Gaming Platform",
   "main": "index.js",
   "scripts": {
-    "start": "serve -s .",
-    "build": "rm -rf dist && mkdir -p dist && rsync -a --exclude 'node_modules' --exclude 'dist' --exclude '.git' --exclude 'workflows' ./ dist/",
-    "preview": "serve -s dist -l 43001",
+    "dev": "serve -s . --listen 3000 --cors",
+    "start": "serve -s . --listen 3000 --cors",
+    "build": "npm run build:clean && npm run build:copy",
+    "build:clean": "rm -rf dist && mkdir -p dist",
+    "build:copy": "rsync -a --exclude 'node_modules' --exclude 'dist' --exclude '.git' --exclude '.github' --exclude '.gitignore' --exclude 'workflows' ./ dist/",
+    "preview": "serve -s dist --listen 43001",
+    "watch": "npm run build && chokidar '**/*.html' '**/*.css' '**/*.js' -c 'npm run build'",
+    "deploy": "npm run build && git add dist && git commit -m 'chore: rebuild dist' && git push",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "serve": "^14.2.1"
+    "serve": "^14.2.1",
+    "chokidar-cli": "^3.0.0"
   }
 }

@@ -12,8 +12,177 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Amped AI Platform" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
-  <script type="module" crossorigin src="/assets/index-B_LgNMPL.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DXfxkgxF.css">
+  <script>
+    // GitHub Pages SPA redirect handler
+    (function(l) {
+      if (l.search[1] === '/' ) {
+        var decoded = l.search.slice(1).split('&').map(function(s) { 
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
+  </script>
+  <script>
+    // Fix asset paths for GitHub Pages deployment
+    (function() {
+      console.log('[Asset Fixer] Initializing asset path interceptor');
+      
+      // Get base path - for root deployment this should be just the origin
+      var basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
+      if (basePath === '/') basePath = '';
+      console.log('[Asset Fixer] Base path:', basePath || '(root)');
+
+      // Helper to fix URLs
+      function fixUrl(url) {
+        if (typeof url === 'string') {
+          // Skip special protocols
+          if (url.startsWith('data:') || url.startsWith('blob:') || url.startsWith('http://') || url.startsWith('https://')) {
+            return url;
+          }
+          
+          // Convert absolute paths to use base path
+          if (url.startsWith('/')) {
+            var fixed = basePath + url;
+            console.log('[Asset Fixer]', url, '→', fixed);
+            return fixed;
+          }
+          
+          return url;
+        }
+        
+        // Support Request objects
+        if (url && typeof url === 'object' && 'url' in url) {
+          var fixedUrl = fixUrl(String(url.url || ''));
+          if (fixedUrl !== url.url) {
+            return new Request(fixedUrl, url);
+          }
+        }
+        
+        return url;
+      }
+
+      // Intercept fetch
+      var originalFetch = window.fetch;
+      window.fetch = function(url, options) {
+        return originalFetch(fixUrl(url), options);
+      };
+
+      // Intercept XMLHttpRequest (used by Three.js)
+      var originalXHROpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
+        url = fixUrl(url);
+        return originalXHROpen.call(this, method, url, async, user, password);
+      };
+
+      // Intercept image src
+      var originalImageSrc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+      if (originalImageSrc) {
+        Object.defineProperty(HTMLImageElement.prototype, 'src', {
+          get: function() {
+            return originalImageSrc.get.call(this);
+          },
+          set: function(value) {
+            originalImageSrc.set.call(this, fixUrl(value));
+          }
+        });
+      }
+
+      // Intercept setAttribute
+      var originalSetAttribute = Element.prototype.setAttribute;
+      Element.prototype.setAttribute = function(name, value) {
+        if ((name === 'src' || name === 'href') && this.tagName !== 'SCRIPT' && this.tagName !== 'LINK') {
+          value = fixUrl(value);
+        }
+        return originalSetAttribute.call(this, name, value);
+      };
+      
+      // Also intercept Three.js FileLoader if it exists (will be set after Three.js loads)
+      var checkThreeJS = setInterval(function() {
+        if (window.THREE && window.THREE.FileLoader) {
+          clearInterval(checkThreeJS);
+          console.log('[Asset Fixer] Three.js detected, patching FileLoader');
+          
+          var originalLoad = window.THREE.FileLoader.prototype.load;
+          window.THREE.FileLoader.prototype.load = function(url, onLoad, onProgress, onError) {
+            var fixedUrl = fixUrl(url);
+            console.log('[Asset Fixer] FileLoader:', url, '→', fixedUrl);
+            return originalLoad.call(this, fixedUrl, onLoad, onProgress, onError);
+          };
+        }
+      }, 100);
+      
+      // Stop checking after 10 seconds
+      setTimeout(function() {
+        clearInterval(checkThreeJS);
+      }, 10000);
+      
+      console.log('[Asset Fixer] Ready - all asset requests will be intercepted');
+    })();
+  </script>
+  <!-- Runtime Three.js material override hook for matte gunner model -->
+  <script>
+    // Hook Three.js to override gunner model materials after load
+    window.__FORCE_MATTE_GUNNER__ = true;
+    
+    // Monkey-patch GLTFLoader traverse to intercept material setup
+    (function() {
+      var checkInterval = setInterval(function() {
+        if (window.THREE && window.THREE.MeshStandardMaterial) {
+          clearInterval(checkInterval);
+          
+          // Store original setters
+          var originalMetalnessSetter = Object.getOwnPropertyDescriptor(window.THREE.MeshStandardMaterial.prototype, 'metalness').set;
+          var originalRoughnessSetter = Object.getOwnPropertyDescriptor(window.THREE.MeshStandardMaterial.prototype, 'roughness').set;
+          var originalEnvMapIntensitySetter = Object.getOwnPropertyDescriptor(window.THREE.MeshStandardMaterial.prototype, 'envMapIntensity').set;
+          
+          // Override setters to enforce matte for gunner materials
+          Object.defineProperty(window.THREE.MeshStandardMaterial.prototype, 'metalness', {
+            get: function() { return this._metalness || 0; },
+            set: function(value) {
+              // Force matte for gunner model (detected by blue color)
+              if (window.__FORCE_MATTE_GUNNER__ && this.color && this.color.getHexString && this.color.getHexString().match(/7aa2ff/i)) {
+                this._metalness = 0;
+              } else {
+                this._metalness = value;
+              }
+              if (originalMetalnessSetter) originalMetalnessSetter.call(this, this._metalness);
+            }
+          });
+          
+          Object.defineProperty(window.THREE.MeshStandardMaterial.prototype, 'roughness', {
+            get: function() { return this._roughness !== undefined ? this._roughness : 1; },
+            set: function(value) {
+              if (window.__FORCE_MATTE_GUNNER__ && this.color && this.color.getHexString && this.color.getHexString().match(/7aa2ff/i)) {
+                this._roughness = 1;
+              } else {
+                this._roughness = value;
+              }
+              if (originalRoughnessSetter) originalRoughnessSetter.call(this, this._roughness);
+            }
+          });
+          
+          Object.defineProperty(window.THREE.MeshStandardMaterial.prototype, 'envMapIntensity', {
+            get: function() { return this._envMapIntensity !== undefined ? this._envMapIntensity : 1; },
+            set: function(value) {
+              if (window.__FORCE_MATTE_GUNNER__ && this.color && this.color.getHexString && this.color.getHexString().match(/7aa2ff/i)) {
+                this._envMapIntensity = 0;
+              } else {
+                this._envMapIntensity = value;
+              }
+              if (originalEnvMapIntensitySetter) originalEnvMapIntensitySetter.call(this, this._envMapIntensity);
+            }
+          });
+        }
+      }, 50);
+    })();
+  </script>
+  
+  <!-- Cache-busting query to avoid stale GH Pages caches after hot edits -->
+  <script type="module" crossorigin src="./assets/index-B_LgNMPL.js?v=20251042"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DXfxkgxF.css?v=20251042">
 </head>
 
 <body>
