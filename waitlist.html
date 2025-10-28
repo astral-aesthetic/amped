@@ -7,180 +7,259 @@
   <title>Join Amped Waitlist - Gaming at Lightspeed</title>
   <meta name="description" content="Be the first to experience Amped. Join our waitlist for early access to AI-powered game creation." />
   <style>
+    :root {
+      -webkit-text-size-adjust: 100%;
+      tab-size: 4;
+      font-variation-settings: normal;
+      -webkit-tap-highlight-color: transparent;
+      --background: 0 0% 9%;
+      --foreground: 0 0% 98%;
+      --card: 0 0% 11%;
+      --card-foreground: 0 0% 98%;
+      --popover: 0 0% 11%;
+      --popover-foreground: 0 0% 98%;
+      --primary: 0 0% 98%;
+      --primary-foreground: 0 0% 9%;
+      --secondary: 0 0% 13%;
+      --secondary-foreground: 0 0% 98%;
+      --muted: 0 0% 13%;
+      --muted-foreground: 0 0% 65%;
+      --accent: 0 0% 13%;
+      --accent-foreground: 0 0% 98%;
+      --destructive: 0 63% 31%;
+      --destructive-foreground: 0 0% 98%;
+      --border: 0 0% 20%;
+      --input: 0 0% 20%;
+      --ring: 0 0% 80%;
+      --radius: .5rem;
+      --sidebar-background: 0 0% 9%;
+      --sidebar-foreground: 0 0% 98%;
+      --sidebar-primary: 0 0% 80%;
+      --sidebar-primary-foreground: 0 0% 100%;
+      --sidebar-accent: 0 0% 15%;
+      --sidebar-accent-foreground: 0 0% 98%;
+      --sidebar-border: 0 0% 20%;
+      --sidebar-ring: 0 0% 80%;
+      --syntax-bg: #1e1e1e;
+      --syntax-color: #d4d4d4;
+      --slider-track-bg: rgba(255, 255, 255, .05);
+      --slider-active-bg: rgba(255, 255, 255, .15);
+      --tw-border-spacing-x: 0;
+      --tw-border-spacing-y: 0;
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-rotate: 0;
+      --tw-skew-x: 0;
+      --tw-skew-y: 0;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-pan-x: ;
+      --tw-pan-y: ;
+      --tw-pinch-zoom: ;
+      --tw-scroll-snap-strictness: proximity;
+      --tw-gradient-from-position: ;
+      --tw-gradient-via-position: ;
+      --tw-gradient-to-position: ;
+      --tw-ordinal: ;
+      --tw-slashed-zero: ;
+      --tw-numeric-figure: ;
+      --tw-numeric-spacing: ;
+      --tw-numeric-fraction: ;
+      --tw-ring-inset: ;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-color: rgb(59 130 246 / .5);
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-colored: 0 0 #0000;
+      --tw-blur: ;
+      --tw-brightness: ;
+      --tw-contrast: ;
+      --tw-grayscale: ;
+      --tw-hue-rotate: ;
+      --tw-invert: ;
+      --tw-saturate: ;
+      --tw-sepia: ;
+      --tw-drop-shadow: ;
+      --tw-backdrop-blur: ;
+      --tw-backdrop-brightness: ;
+      --tw-backdrop-contrast: ;
+      --tw-backdrop-grayscale: ;
+      --tw-backdrop-hue-rotate: ;
+      --tw-backdrop-invert: ;
+      --tw-backdrop-opacity: ;
+      --tw-backdrop-saturate: ;
+      --tw-backdrop-sepia: ;
+      --tw-contain-size: ;
+      --tw-contain-layout: ;
+      --tw-contain-paint: ;
+      --tw-contain-style: ;
+    }
+
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
+      border-width: 0;
+      border-style: solid;
+      border-color: hsl(var(--border));
+      margin: 0;
+      line-height: inherit;
+    }
+
+    html {
+      background-color: hsl(var(--background));
+      font-family: Inter, sans-serif;
+      color: hsl(var(--foreground));
+      font-feature-settings: "salt", "ss01", "ss02", "rlig" 1, "calt" 1;
+      letter-spacing: -.01em;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #0f172a 0%, #1a1a2e 50%, #16213e 100%);
-      color: #e2e8f0;
-      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-family: Inter, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Animated Background */
-    .bg-animation {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
+    /* Layout */
+    .container {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
 
-    .bg-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.4;
-      animation: float 20s infinite ease-in-out;
+    @media (min-width: 640px) {
+      .container { max-width: 640px; }
     }
-
-    .orb-1 {
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(236, 72, 153, 0.8) 0%, transparent 70%);
-      top: -200px;
-      right: -100px;
-      animation-delay: 0s;
+    @media (min-width: 768px) {
+      .container { max-width: 768px; }
     }
-
-    .orb-2 {
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, transparent 70%);
-      bottom: -100px;
-      left: -100px;
-      animation-delay: 5s;
+    @media (min-width: 1024px) {
+      .container { max-width: 1024px; }
     }
-
-    .orb-3 {
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, transparent 70%);
-      top: 50%;
-      right: 10%;
-      animation-delay: 10s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0); }
-      33% { transform: translate(30px, -30px); }
-      66% { transform: translate(-20px, 20px); }
-    }
-
-    /* Content */
-    .content {
-      position: relative;
-      z-index: 10;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    @media (min-width: 1280px) {
+      .container { max-width: 1280px; }
     }
 
     /* Header */
     header {
-      padding: 2rem;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background-color: hsl(var(--card));
+      border-bottom: 1px solid hsl(var(--border));
+      padding: 1.5rem;
+      position: relative;
+      z-index: 20;
     }
 
     .logo {
       font-size: 1.5rem;
-      font-weight: bold;
-      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-weight: 700;
+      color: hsl(var(--foreground));
     }
 
-    /* Hero Section */
-    .hero {
-      flex: 1;
+    /* Main Content */
+    main {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
+      min-height: calc(100vh - 140px);
+      padding: 2rem 1rem;
+      position: relative;
+    }
+
+    /* Hero */
+    .hero {
       text-align: center;
+      max-width: 640px;
+      width: 100%;
     }
 
     .hero h1 {
-      font-size: clamp(2rem, 8vw, 4.5rem);
+      font-size: 2rem;
       font-weight: 900;
       line-height: 1.1;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 30%, #ec4899 60%, #f97316 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: fadeInUp 0.8s ease-out;
+      margin-bottom: 1rem;
+      color: hsl(var(--foreground));
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
     }
 
     .hero p {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: #cbd5e1;
-      max-width: 600px;
-      margin: 0 auto 3rem;
-      animation: fadeInUp 0.8s ease-out 0.2s both;
+      font-size: 1rem;
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 2rem;
+      line-height: 1.6;
     }
 
-    /* Form Section */
+    @media (min-width: 768px) {
+      .hero p {
+        font-size: 1.125rem;
+      }
+    }
+
+    /* Form */
     .form-container {
-      max-width: 500px;
-      width: 100%;
-      margin: 0 auto;
-      animation: fadeInUp 0.8s ease-out 0.4s both;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
     .form-group {
-      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
     }
 
     input {
-      width: 100%;
-      padding: 1rem;
-      background: rgba(30, 41, 59, 0.8);
-      border: 2px solid rgba(6, 182, 212, 0.3);
-      border-radius: 0.75rem;
-      color: #e2e8f0;
+      padding: 0.75rem 1rem;
+      background-color: hsl(var(--input));
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) * 1.5);
+      color: hsl(var(--foreground));
       font-size: 1rem;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      font-family: inherit;
+      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
     }
 
     input::placeholder {
-      color: #94a3b8;
+      color: hsl(var(--muted-foreground));
     }
 
     input:focus {
       outline: none;
-      border-color: #06b6d4;
-      background: rgba(30, 41, 59, 0.95);
-      box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+      border-color: hsl(var(--ring));
+      background-color: hsl(var(--card));
+      box-shadow: 0 0 0 3px hsl(var(--ring) / 0.1);
     }
 
+    /* Button */
     .submit-btn {
-      width: 100%;
-      padding: 1rem 2rem;
-      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-      color: white;
-      border: none;
-      border-radius: 0.75rem;
+      padding: 0.875rem 1.5rem;
+      background-color: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+      border: 1px solid hsl(var(--primary));
+      border-radius: calc(var(--radius) * 1.5);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background-color 0.2s, transform 0.1s;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      position: relative;
-      overflow: hidden;
+      width: 100%;
     }
 
     .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+      background-color: hsl(var(--primary) / 0.9);
+      transform: translateY(-1px);
     }
 
     .submit-btn:active {
@@ -190,54 +269,84 @@
     /* Features Grid */
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 4rem;
-      animation: fadeInUp 0.8s ease-out 0.6s both;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      width: 100%;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .features {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
     .feature-card {
-      padding: 2rem;
-      background: rgba(15, 23, 42, 0.7);
-      border: 1px solid rgba(6, 182, 212, 0.2);
-      border-radius: 1rem;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      padding: 1.5rem;
+      background-color: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
     }
 
     .feature-card:hover {
-      border-color: rgba(6, 182, 212, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      transform: translateY(-5px);
+      border-color: hsl(var(--ring));
+      background-color: hsl(var(--card) / 0.8);
+      transform: translateY(-2px);
     }
 
     .feature-icon {
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
+      display: block;
     }
 
     .feature-card h3 {
-      font-size: 1.25rem;
+      font-size: 1.125rem;
+      font-weight: 600;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: hsl(var(--foreground));
     }
 
     .feature-card p {
-      color: #cbd5e1;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.5;
     }
 
     /* Footer */
     footer {
+      padding: 2rem 1rem;
       text-align: center;
-      padding: 3rem 2rem;
-      color: #64748b;
-      font-size: 0.9rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: hsl(var(--muted-foreground));
+      font-size: 0.875rem;
+      border-top: 1px solid hsl(var(--border));
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      background-color: hsl(var(--card));
+      color: hsl(var(--card-foreground));
+      padding: 1rem 1.5rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      z-index: 50;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
 
     /* Animations */
@@ -252,104 +361,81 @@
       }
     }
 
+    .hero,
+    .form-container,
+    .features {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
     /* Responsive */
-    @media (max-width: 768px) {
-      header {
-        padding: 1.5rem;
+    @media (max-width: 640px) {
+      main {
+        min-height: calc(100vh - 100px);
+        padding: 1.5rem 1rem;
       }
 
-      .hero {
-        padding: 1.5rem;
+      .hero h1 {
+        font-size: 1.75rem;
       }
 
       .features {
-        grid-template-columns: 1fr;
         margin-top: 2rem;
-      }
-
-      footer {
-        padding: 2rem 1.5rem;
-      }
-    }
-
-    /* Success message (hidden by default) */
-    .success-message {
-      display: none;
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 0.5rem;
-      z-index: 1000;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="bg-animation">
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
-  </div>
-
-  <div class="content">
-    <header>
+  <header>
+    <div class="container">
       <div class="logo">⚡ AMPED</div>
-    </header>
+    </div>
+  </header>
 
-    <div class="hero">
-      <h1>Join the Revolution</h1>
-      <p>Be among the first to experience AI-powered game creation at lightspeed. Secure your spot on our exclusive waitlist.</p>
+  <main>
+    <div class="container">
+      <div class="hero">
+        <h1>Join the Revolution</h1>
+        <p>Be among the first to experience AI-powered game creation at lightspeed. Secure your spot on our exclusive waitlist.</p>
 
-      <div class="form-container">
-        <form id="waitlistForm">
-          <div class="form-group">
-            <input type="text" placeholder="Your Name" required />
-          </div>
-          <div class="form-group">
-            <input type="email" placeholder="your@email.com" required />
-          </div>
-          <button type="submit" class="submit-btn">Join Waitlist</button>
-        </form>
+        <div class="form-container">
+          <form id="waitlistForm">
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="your@email.com" required />
+            </div>
+            <button type="submit" class="submit-btn">Join Waitlist</button>
+          </form>
 
-        <div class="features">
-          <div class="feature-card">
-            <div class="feature-icon">🎮</div>
-            <h3>Create Games</h3>
-            <p>Turn your ideas into playable games with AI assistance</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">🚀</div>
-            <h3>Launch Fast</h3>
-            <p>From concept to playable in minutes, not months</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">💰</div>
-            <h3>Earn Rewards</h3>
-            <p>Monetize your creations and earn from the community</p>
+          <div class="features">
+            <div class="feature-card">
+              <span class="feature-icon">🎮</span>
+              <h3>Create Games</h3>
+              <p>Turn your ideas into playable games with AI assistance</p>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">🚀</span>
+              <h3>Launch Fast</h3>
+              <p>From concept to playable in minutes, not months</p>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icon">💰</span>
+              <h3>Earn Rewards</h3>
+              <p>Monetize your creations and earn from the community</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </main>
 
-    <footer>
+  <footer>
+    <div class="container">
       <p>&copy; 2025 Amped - Gaming at Lightspeed. All rights reserved.</p>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   <div class="success-message" id="successMessage">
     ✓ Thanks for joining! Check your email for updates.
