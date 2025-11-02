@@ -89,7 +89,6 @@ const HomePage: React.FC = () => {
   };
 
   const quickActions = [
-    { icon: Sparkles, label: 'Generate Game', path: '/generate', color: 'from-purple-500 to-pink-500' },
     { icon: Coins, label: 'Pricing Guide', path: '/pricing', color: 'from-yellow-500 to-orange-500' },
     { icon: TrendingUp, label: 'Trending', path: '/trending', color: 'from-orange-500 to-red-500' },
     { icon: Star, label: 'Featured', path: '/featured', color: 'from-yellow-500 to-orange-500' },

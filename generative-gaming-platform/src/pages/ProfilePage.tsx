@@ -204,13 +204,6 @@ const ProfilePage: React.FC = () => {
         <div className="lg:col-span-2">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-white">My Games</h2>
-            <Link 
-              to="/generate" 
-              className="bg-gradient-to-r from-purple-500 to-pink-600 text-white px-4 py-2 rounded-lg font-medium hover:from-purple-400 hover:to-pink-500 transition-all duration-200 flex items-center gap-2"
-            >
-              <Trophy className="w-4 h-4" />
-              Create Game
-            </Link>
           </div>
           
           {userCreatedGames.length > 0 ? (
@@ -223,19 +216,10 @@ const ProfilePage: React.FC = () => {
             <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-8 text-center">
               <Trophy className="w-12 h-12 text-slate-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-white mb-2">No Games Yet</h3>
-              <p className="text-slate-400 mb-4">Start creating games and share them with the community</p>
-              <Link 
-                to="/generate" 
-                className="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-cyan-400 hover:to-purple-500 transition-all duration-200 inline-flex items-center gap-2"
-              >
-                <Trophy className="w-4 h-4" />
-                Create Your First Game
-              </Link>
+              <p className="text-slate-400 mb-4">Browse the arcade to discover amazing games from the community</p>
             </div>
           )}
         </div>
-        
-        {/* Recent Transactions */}
         <div>
           <h2 className="text-2xl font-bold text-white mb-6">Recent Activity</h2>
           <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6">
