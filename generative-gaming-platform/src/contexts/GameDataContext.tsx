@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-interface Game {
+export interface Game {
   game_id: string;
   title: string;
   creator_id: string;

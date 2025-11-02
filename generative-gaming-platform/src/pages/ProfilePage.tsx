@@ -62,7 +62,7 @@ const ProfilePage: React.FC = () => {
           {/* User Info */}
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold text-white">{user.display_name}</h1>
+              <h1 className="text-3xl font-bold text-white">@{user.username}</h1>
               <span className={`px-3 py-1 rounded-lg text-sm font-medium ${
                 user.tier === 'creator_elite' 
                   ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sparkles, TrendingUp, Star, Users, Trophy, Zap, Gamepad2, ArrowRight, Play, Coins, Search, Clock, Flame, Heart, Sliders } from 'lucide-react';
+import { Sparkles, TrendingUp, Star, Users, Trophy, Zap, Gamepad2, ArrowRight, Play, Coins, Search, Clock, Flame, Heart, Sliders, UserPlus, MessageCircle, Download } from 'lucide-react';
 import { useGameData } from '../contexts/GameDataContext';
 import GameCard from '../components/games/GameCard';
 import FadeInSection from '../components/ui/FadeInSection';
@@ -109,11 +109,41 @@ const HomePage: React.FC = () => {
     <div className="p-4 sm:p-6 lg:p-8 space-y-8">
       {/* Search Games Bar with Filter and Sort */}
       <FadeInSection>
-        <form onSubmit={handleSearch} className="relative space-y-3">
-          {/* Main Search Bar */}
-          <div className="relative group">
+        <div className="flex justify-center">
+          <div className="w-full max-w-2xl">
+            {/* Search Bar Form */}
+            <form onSubmit={handleSearch} className="relative space-y-3">
+              {/* Main Search Bar */}
+              <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl blur-lg group-focus-within:blur-xl opacity-75 group-focus-within:opacity-100 transition-all" />
             <div className="relative flex items-center gap-3 bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 group-focus-within:border-pink-400/50 p-4 transition-all">
+              {/* Action Icons - Inside Search Bar */}
+              <Link
+                to="/community"
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
+                title="My Friends"
+              >
+                <UserPlus className="w-5 h-5 text-green-400 group-hover/icon:text-green-300 transition-colors" />
+              </Link>
+              
+              <button
+                type="button"
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
+                title="Messages"
+              >
+                <MessageCircle className="w-5 h-5 text-blue-400 group-hover/icon:text-blue-300 transition-colors" />
+              </button>
+              
+              <Link
+                to="/leaderboards"
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
+                title="Leaderboards & Achievements"
+              >
+                <Trophy className="w-5 h-5 text-yellow-400 group-hover/icon:text-yellow-300 transition-colors" />
+              </Link>
+              
+              <div className="w-px h-6 bg-white/10" />
+              
               <Search className="w-5 h-5 text-slate-400 group-focus-within:text-pink-400 transition-colors" />
               <input
                 type="text"
@@ -230,52 +260,54 @@ const HomePage: React.FC = () => {
               )}
             </div>
           )}
-        </form>
+            </form>
+          </div>
+        </div>
       </FadeInSection>
 
       {/* Featured Game Section */}
       <FadeInSection delay={50}>
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-transparent to-pink-500/10 pointer-events-none" />
           
-          <div className="relative grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 p-6 lg:p-12">
             {/* Featured Game Info - Left */}
-            <div className="lg:col-span-1 flex flex-col justify-center space-y-4">
+            <div className="lg:col-span-1 flex flex-col justify-center space-y-6">
               <div>
-                <span className="inline-block px-3 py-1 bg-gradient-to-r from-purple-500/30 to-pink-500/30 border border-purple-400/50 rounded-full text-xs font-medium text-purple-300 mb-2">
+                <span className="inline-block px-4 py-2 bg-gradient-to-r from-purple-500/30 to-pink-500/30 border border-purple-400/50 rounded-full text-sm font-semibold text-purple-300 mb-4">
                   Featured This Week
                 </span>
-                <h2 className="text-4xl font-bold text-white mb-2">{featuredGames[0]?.title || 'Featured Game'}</h2>
-                <p className="text-slate-400 mb-4">{(featuredGames[0] as any)?.description || 'Check out this amazing game crafted by our community.'}</p>
+                <h2 className="text-5xl lg:text-6xl font-bold text-white mb-4">{featuredGames[0]?.title || 'Featured Game'}</h2>
+                <p className="text-slate-300 text-lg mb-6">{(featuredGames[0] as any)?.description || 'Check out this amazing game crafted by our community.'}</p>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-400" />
-                  <span className="text-white font-semibold">{(featuredGames[0] as any)?.rating || 4.8}</span>
+                  <Star className="w-6 h-6 text-yellow-400" />
+                  <span className="text-white font-semibold text-lg">{(featuredGames[0] as any)?.rating || 4.8}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Play className="w-5 h-5 text-blue-400" />
-                  <span className="text-white font-semibold">{((featuredGames[0] as any)?.plays?.toLocaleString?.()) || '15.2K'}</span>
+                  <Play className="w-6 h-6 text-blue-400" />
+                  <span className="text-white font-semibold text-lg">{((featuredGames[0] as any)?.plays?.toLocaleString?.()) || '15.2K'}</span>
                 </div>
               </div>
               <Link
                 to={`/games/${featuredGames[0]?.game_id || '#'}`}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white rounded-lg font-medium transition-all hover:scale-105 w-full"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-white rounded-xl font-bold text-lg transition-all hover:scale-105 w-full"
               >
-                <Play className="w-4 h-4" />
+                <Play className="w-5 h-5" />
                 Play Now
               </Link>
             </div>
             
             {/* Featured Game Image - Right */}
-            <div className="lg:col-span-2">
-              <div className="w-full h-64 lg:h-80 bg-gradient-to-br from-slate-800 to-slate-700 rounded-xl border border-white/10 flex items-center justify-center overflow-hidden">
-                {(featuredGames[0] as any)?.image || (featuredGames[0] as any)?.thumbnail ? (
+            <div className="lg:col-span-1">
+              <div className="w-full h-72 lg:h-96 bg-gradient-to-br from-slate-800 to-slate-700 rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
+                {(featuredGames[0] as any)?.cover_image || (featuredGames[0] as any)?.image || (featuredGames[0] as any)?.thumbnail ? (
                   <img
-                    src={(featuredGames[0] as any)?.image || (featuredGames[0] as any)?.thumbnail}
+                    src={(featuredGames[0] as any)?.cover_image || (featuredGames[0] as any)?.image || (featuredGames[0] as any)?.thumbnail}
                     alt={featuredGames[0]?.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center gap-2 text-slate-500">
@@ -289,8 +321,36 @@ const HomePage: React.FC = () => {
         </div>
       </FadeInSection>
 
-      {/* Dashboard Stats Row */}
+      {/* Quick Actions */}
       <FadeInSection delay={100}>
+        <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-2xl border border-white/10 p-6 lg:p-8">
+          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <Zap className="w-6 h-6 text-cyan-400" />
+            Quick Actions
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {quickActions.map((action) => {
+              const Icon = action.icon;
+              return (
+                <Link
+                  key={action.path}
+                  to={action.path}
+                  className="group relative p-4 bg-black/30 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-r ${action.color} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300`} />
+                  <div className="relative">
+                    <Icon className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-200 mb-2" />
+                    <p className="text-sm text-white font-medium">{action.label}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </FadeInSection>
+
+      {/* Dashboard Stats Row */}
+      <FadeInSection delay={150}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Recent Activity */}
           <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6">
@@ -352,34 +412,6 @@ const HomePage: React.FC = () => {
         </div>
       </FadeInSection>
 
-      {/* Quick Actions */}
-      <FadeInSection delay={150}>
-        <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-2xl border border-white/10 p-6 lg:p-8">
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <Zap className="w-6 h-6 text-cyan-400" />
-            Quick Actions
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {quickActions.map((action) => {
-              const Icon = action.icon;
-              return (
-                <Link
-                  key={action.path}
-                  to={action.path}
-                  className="group relative p-4 bg-black/30 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-r ${action.color} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300`} />
-                  <div className="relative">
-                    <Icon className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-200 mb-2" />
-                    <p className="text-sm text-white font-medium">{action.label}</p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </FadeInSection>
-
       {/* Continue Playing Section */}
       <FadeInSection delay={200}>
         <div className="space-y-4">
@@ -407,8 +439,84 @@ const HomePage: React.FC = () => {
             <div className="overflow-x-auto pb-4 scrollbar-hide">
               <div className="flex gap-6 min-w-min">
                 {favoriteGames.map(game => (
-                  <div key={game.game_id} className="flex-shrink-0 w-64">
-                    <GameCard game={game as any} compact />
+                  <div key={game.game_id} className="flex-shrink-0 w-72">
+                    {/* Custom Favorite Games Card */}
+                    <div className="group relative h-96 bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-pink-500/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/20 flex flex-col">
+                      {/* Background Gradient Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-pink-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Game Cover Image */}
+                      <div className="relative h-48 overflow-hidden">
+                        <img
+                          src={game.image || game.thumbnail || '/api/placeholder/300/200'}
+                          alt={game.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            const img = e.target as HTMLImageElement;
+                            img.src = '/api/placeholder/300/200';
+                          }}
+                        />
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+                        
+                        {/* Rating Badge - Top Right */}
+                        <div className="absolute top-3 right-3 bg-gradient-to-r from-yellow-500 to-amber-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1 shadow-lg">
+                          <Star className="w-4 h-4 fill-current" />
+                          {(game.rating || 4.8).toFixed(1)}
+                        </div>
+                        
+                        {/* Play Button - Centered */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 shadow-xl transform scale-90 group-hover:scale-100 transition-transform duration-200">
+                            <Play className="w-4 h-4 fill-current" />
+                            Play
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Game Info */}
+                      <div className="relative p-4 flex-1 flex flex-col justify-between">
+                        {/* Title and Creator */}
+                        <div className="min-w-0">
+                          <h3 className="text-white font-bold text-lg line-clamp-2 group-hover:text-pink-300 transition-colors mb-1">
+                            {game.title}
+                          </h3>
+                          <p className="text-slate-400 text-xs">
+                            {game.genre || 'Game'}
+                          </p>
+                        </div>
+                        
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-3 gap-2 py-3 border-t border-white/10">
+                          <div className="text-center">
+                            <div className="flex justify-center mb-1">
+                              <Download className="w-4 h-4 text-cyan-400" />
+                            </div>
+                            <p className="text-xs text-slate-300 font-medium">{(game.plays ? game.plays / 1000 : 15.2).toFixed(1)}K</p>
+                            <p className="text-xs text-slate-500">Plays</p>
+                          </div>
+                          <div className="text-center">
+                            <div className="flex justify-center mb-1">
+                              <Heart className="w-4 h-4 text-pink-400" />
+                            </div>
+                            <p className="text-xs text-slate-300 font-medium">{(game.rating ? game.rating * 100 : 480).toLocaleString().substring(0, 3)}</p>
+                            <p className="text-xs text-slate-500">Favs</p>
+                          </div>
+                          <div className="text-center">
+                            <div className="flex justify-center mb-1">
+                              <Users className="w-4 h-4 text-green-400" />
+                            </div>
+                            <p className="text-xs text-slate-300 font-medium">9.2K</p>
+                            <p className="text-xs text-slate-500">Players</p>
+                          </div>
+                        </div>
+                        
+                        {/* Action Button */}
+                        <button className="w-full mt-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white py-2 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg hover:shadow-pink-500/30">
+                          Play Now
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Search, Grid, List, TrendingUp, Sliders } from 'lucide-react';
 import { useGameData } from '../contexts/GameDataContext';
+import { Link } from 'react-router-dom';
 import GameCard from '../components/games/GameCard';
 import FadeInSection from '../components/ui/FadeInSection';
 
-const GamesPage: React.FC = () => {
+const ArcadePage: React.FC = () => {
   const { userGames, searchGames, filterGamesByCategory } = useGameData();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -50,14 +51,140 @@ const GamesPage: React.FC = () => {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8">
+      {/* Featured Game of the Week */}
+      <FadeInSection>
+        <div className="relative overflow-hidden rounded-2xl">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 blur-xl" />
+          <div className="relative bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl border border-white/10 p-6 sm:p-8 lg:p-10">
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-center">
+              {/* Featured Game Image */}
+              {filteredGames.length > 0 && (
+                <div className="w-full lg:w-64 h-48 lg:h-56 flex-shrink-0">
+                  <img
+                    src={filteredGames[0].cover_image}
+                    alt={filteredGames[0].title}
+                    className="w-full h-full object-cover rounded-xl border border-white/10"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.src = '/api/placeholder/300/200';
+                    }}
+                  />
+                </div>
+              )}
+              
+              {/* Featured Game Info */}
+              <div className="flex-1 space-y-4">
+                <div className="inline-block">
+                  <span className="px-3 py-1 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent text-sm font-semibold">FEATURED GAME</span>
+                </div>
+                <h2 className="text-4xl lg:text-5xl font-bold text-white">
+                  {filteredGames.length > 0 ? filteredGames[0].title : 'Loading...'}
+                </h2>
+                <p className="text-slate-400 text-lg max-w-2xl">
+                  {filteredGames.length > 0 ? filteredGames[0].description : 'Check back soon for new games!'}
+                </p>
+                
+                {filteredGames.length > 0 && (
+                  <div className="flex flex-wrap gap-4 pt-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-400 text-sm">Rating:</span>
+                      <span className="text-yellow-400 font-semibold">{filteredGames[0].stats.rating.toFixed(1)} ⭐</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-400 text-sm">Downloads:</span>
+                      <span className="text-white font-semibold">{(filteredGames[0].stats.downloads / 1000).toFixed(1)}K</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-400 text-sm">Category:</span>
+                      <span className="text-white font-semibold">{filteredGames[0].category}</span>
+                    </div>
+                  </div>
+                )}
+                
+                <button className="mt-6 px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
+                  Play Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FadeInSection>
+
+      {/* Trending Games Section */}
+      <FadeInSection>
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <TrendingUp className="w-6 h-6 text-orange-400" />
+            <h3 className="text-2xl font-bold text-white">Trending Now</h3>
+          </div>
+          
+          {filteredGames.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {filteredGames.slice(1, 5).map((game, index) => (
+                <div
+                  key={game.game_id}
+                  className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 border border-white/5 hover:border-orange-400/50 transition-all duration-300"
+                >
+                  {/* Rank Badge */}
+                  <div className="absolute top-3 left-3 z-10 w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center font-bold text-white text-sm">
+                    {index + 2}
+                  </div>
+                  
+                  {/* Game Image */}
+                  <div className="relative h-40 overflow-hidden">
+                    <img
+                      src={game.cover_image}
+                      alt={game.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = '/api/placeholder/300/200';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
+                  </div>
+                  
+                  {/* Game Info */}
+                  <div className="p-3 space-y-2">
+                    <h4 className="font-semibold text-white truncate group-hover:text-orange-300 transition-colors">
+                      {game.title}
+                    </h4>
+                    <p className="text-slate-400 text-sm truncate">{game.creator_username}</p>
+                    
+                    {/* Stats */}
+                    <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/5">
+                      <span className="flex items-center gap-1">
+                        <span>⭐</span>
+                        {game.stats.rating.toFixed(1)}
+                      </span>
+                      <span>{(game.stats.downloads / 1000).toFixed(0)}K</span>
+                    </div>
+                  </div>
+                  
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-orange-600/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-slate-400">No trending games available</p>
+            </div>
+          )}
+        </div>
+      </FadeInSection>
+
       {/* Search Games Bar with Filter and Sort */}
       <FadeInSection>
-        <form onSubmit={(e) => {
-          e.preventDefault();
-        }} className="relative space-y-3">
-          {/* Main Search Bar */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl blur-lg group-focus-within:blur-xl opacity-75 group-focus-within:opacity-100 transition-all" />
+        <div className="flex justify-center">
+          <div className="w-full max-w-2xl">
+            {/* Search Bar Form */}
+            <form onSubmit={(e) => {
+              e.preventDefault();
+            }} className="relative space-y-3">
+            {/* Main Search Bar */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl blur-lg group-focus-within:blur-xl opacity-75 group-focus-within:opacity-100 transition-all" />
             <div className="relative flex items-center gap-3 bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 group-focus-within:border-pink-400/50 p-4 transition-all">
               <Search className="w-5 h-5 text-slate-400 group-focus-within:text-pink-400 transition-colors" />
               <input
@@ -166,7 +293,9 @@ const GamesPage: React.FC = () => {
               </div>
             </div>
           </div>
-        </form>
+            </form>
+          </div>
+        </div>
       </FadeInSection>
 
       {/* Results */}
@@ -215,4 +344,4 @@ const GamesPage: React.FC = () => {
   );
 };
 
-export default GamesPage;
+export default ArcadePage;

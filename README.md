@@ -1,1 +1,1 @@
-# Amped
+# Good Games

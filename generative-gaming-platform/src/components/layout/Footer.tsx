@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Home, Gamepad2, Users, Trophy, HelpCircle, Mail, Twitter, Youtube, Twitch, MessageCircle } from 'lucide-react';
+import { Home, Gamepad2, Users, Trophy, HelpCircle, Mail, Twitter, Youtube, Twitch, MessageCircle } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -11,12 +11,12 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-sm relative">
+                <span className="transform -scale-x-100">G</span><span>G</span>
               </div>
               <div>
                 <h3 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                  Amped
+                  Good Games
                 </h3>
                 <p className="text-slate-400 text-sm">AI Gaming Platform</p>
               </div>
@@ -52,19 +52,19 @@ const Footer: React.FC = () => {
                 Dashboard
               </Link>
               <Link to="/games" className="block text-slate-300 hover:text-cyan-400 transition-colors text-sm">
-                Discover Games
+                Arcade
               </Link>
               <Link to="/generate" className="block text-slate-300 hover:text-cyan-400 transition-colors text-sm">
                 AI Game Generator
               </Link>
               <Link to="/community" className="block text-slate-300 hover:text-cyan-400 transition-colors text-sm">
-                Community
+                Creator Hub
               </Link>
               <Link to="/leaderboards" className="block text-slate-300 hover:text-cyan-400 transition-colors text-sm">
                 Leaderboards
               </Link>
-              <Link to="/profile" className="block text-slate-300 hover:text-cyan-400 transition-colors text-sm">
-                Profile
+              <Link to="/settings" className="block text-slate-300 hover:text-cyan-400 transition-colors text-sm">
+                Settings
               </Link>
             </nav>
           </div>
@@ -76,8 +76,8 @@ const Footer: React.FC = () => {
               Support
             </h4>
             <nav className="space-y-2">
-              <Link to="/faq" className="block text-slate-300 hover:text-green-400 transition-colors text-sm">
-                FAQ
+              <Link to="/help" className="block text-slate-300 hover:text-green-400 transition-colors text-sm">
+                Help & Support
               </Link>
               <a href="#" className="block text-slate-300 hover:text-green-400 transition-colors text-sm">
                 Help Center
@@ -144,7 +144,7 @@ const Footer: React.FC = () => {
         <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-slate-400 text-sm">
-              © 2025 Amped AI Platform. All rights reserved.
+              © 2025 Good Games AI Platform. All rights reserved.
             </div>
             <div className="flex items-center gap-6 text-slate-400 text-sm">
               <span>Made with ❤️ for creators</span>

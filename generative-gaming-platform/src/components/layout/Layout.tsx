@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
-import Footer from './Footer';
 import PageTransition from '../ui/PageTransition';
 import { useAuth } from '../../contexts/AuthContext';
 import { useGameData } from '../../contexts/GameDataContext';
@@ -37,7 +36,6 @@ const Layout: React.FC = () => {
           <PageTransition>
             <Outlet />
           </PageTransition>
-          <Footer />
         </main>
       </div>
     </div>

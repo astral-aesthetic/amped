@@ -151,19 +151,6 @@ const LeaderboardsPage: React.FC = () => {
 
   return (
     <div className="p-8 space-y-8">
-      {/* Header */}
-      <div className="text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl mb-4">
-          <Trophy className="w-8 h-8 text-white" />
-        </div>
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">
-          Leaderboards
-        </h1>
-        <p className="text-slate-400 text-lg">
-          Compete with creators and discover the top games and achievements
-        </p>
-      </div>
-
       {/* Leaderboard Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6 text-center">
@@ -189,45 +176,6 @@ const LeaderboardsPage: React.FC = () => {
           <p className="text-2xl font-bold text-white">2.8M</p>
           <p className="text-slate-400 text-sm">Credits Earned</p>
         </div>
-      </div>
-
-      {/* Leaderboards */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-        {/* Top Downloads */}
-        <LeaderboardCard
-          title="Most Downloaded Creators"
-          description="Creators ranked by total game downloads"
-          entries={leaderboards.leaderboards.top_creators_by_downloads.entries}
-          icon={Download}
-          iconColor="from-cyan-500 to-blue-600"
-        />
-        
-        {/* Top Rated Games */}
-        <LeaderboardCard
-          title="Highest Rated Games"
-          description="Games with the highest user ratings"
-          entries={leaderboards.leaderboards.top_rated_games.entries}
-          icon={Star}
-          iconColor="from-yellow-500 to-orange-600"
-        />
-        
-        {/* Top Earners */}
-        <LeaderboardCard
-          title="Top Credit Earners"
-          description="Creators ranked by total credits earned"
-          entries={leaderboards.leaderboards.top_earners.entries}
-          icon={Zap}
-          iconColor="from-green-500 to-emerald-600"
-        />
-        
-        {/* Most Followed */}
-        <LeaderboardCard
-          title="Most Followed Creators"
-          description="Creators with the most followers"
-          entries={leaderboards.leaderboards.most_followed_creators.entries}
-          icon={Users}
-          iconColor="from-purple-500 to-pink-600"
-        />
       </div>
 
       {/* Achievement Showcase */}
@@ -292,6 +240,45 @@ const LeaderboardsPage: React.FC = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* Leaderboards */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        {/* Top Downloads */}
+        <LeaderboardCard
+          title="Most Downloaded Creators"
+          description="Creators ranked by total game downloads"
+          entries={leaderboards.leaderboards.top_creators_by_downloads.entries}
+          icon={Download}
+          iconColor="from-cyan-500 to-blue-600"
+        />
+        
+        {/* Top Rated Games */}
+        <LeaderboardCard
+          title="Highest Rated Games"
+          description="Games with the highest user ratings"
+          entries={leaderboards.leaderboards.top_rated_games.entries}
+          icon={Star}
+          iconColor="from-yellow-500 to-orange-600"
+        />
+        
+        {/* Top Earners */}
+        <LeaderboardCard
+          title="Top Credit Earners"
+          description="Creators ranked by total credits earned"
+          entries={leaderboards.leaderboards.top_earners.entries}
+          icon={Zap}
+          iconColor="from-green-500 to-emerald-600"
+        />
+        
+        {/* Most Followed */}
+        <LeaderboardCard
+          title="Most Followed Creators"
+          description="Creators with the most followers"
+          entries={leaderboards.leaderboards.most_followed_creators.entries}
+          icon={Users}
+          iconColor="from-purple-500 to-pink-600"
+        />
       </div>
     </div>
   );

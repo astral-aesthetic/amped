@@ -4,17 +4,16 @@ import {
   LayoutDashboard, 
   Gamepad2, 
   User, 
-  Trophy, 
   Users, 
-  Zap, 
   Search, 
   HelpCircle,
   Menu,
   X,
   Sparkles,
-  TrendingUp,
-  Star,
-  Coins
+  Coins,
+  Wand2,
+  Settings,
+  LogOut
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCredits } from '../../contexts/CreditContext';
@@ -24,22 +23,18 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const location = useLocation();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const { balance } = useCredits();
 
   const navigationItems = [
     { icon: LayoutDashboard, label: 'My Dashboard', path: '/', color: 'text-cyan-400' },
-    { icon: Gamepad2, label: 'Discover Games', path: '/games', color: 'text-indigo-400' },
-    { icon: Sparkles, label: 'AI Game Generator', path: '/generate', color: 'text-purple-400' },
-    { icon: Coins, label: 'Pricing', path: '/pricing', color: 'text-yellow-400' },
-    { icon: TrendingUp, label: 'Trending', path: '/trending', color: 'text-orange-400' },
-    { icon: Star, label: 'Featured', path: '/featured', color: 'text-yellow-400' },
-    { icon: Users, label: 'Community', path: '/community', color: 'text-green-400' },
-    { icon: Trophy, label: 'Leaderboards', path: '/leaderboards', color: 'text-red-400' },
-    { icon: User, label: 'Profile', path: '/profile', color: 'text-blue-400' },
-    { icon: HelpCircle, label: 'FAQ', path: '/faq', color: 'text-gray-400' }
+    { icon: Gamepad2, label: 'Arcade', path: '/games', color: 'text-indigo-400' },
+    { icon: Wand2, label: 'AI Game Generator', path: '/generate', color: 'text-purple-400' },
+    { icon: Users, label: 'Creator Hub', path: '/community', color: 'text-green-400' },
+    { icon: Settings, label: 'Settings', path: '/settings', color: 'text-blue-400' },
+    { icon: HelpCircle, label: 'Help & Support', path: '/help', color: 'text-gray-400' }
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -57,13 +52,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
       <div className="p-4 border-b border-white/10">
         <div className="flex items-center justify-between">
           {!isCollapsed && (
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-600 rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-white" />
+            <div className="flex-1 flex justify-center">
+              <div className="text-3xl font-bold">
+                <span className="inline-block transform -scale-x-100 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent -mr-1">G</span><span className="inline-block bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">G</span>
               </div>
-              <span className="text-white font-bold text-lg bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                Amped
-              </span>
             </div>
           )}
           <button
@@ -78,11 +70,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
       {/* User Credits (when logged in) */}
       {user && !isCollapsed && (
         <div className="p-4 border-b border-white/10">
-          <div className="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-lg p-3 border border-cyan-500/30">
-            <div className="flex items-center justify-between">
-              <span className="text-cyan-300 text-sm font-medium">Credits</span>
-              <span className="text-white font-bold">{balance.toLocaleString()}</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Coins className="w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" />
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent text-sm font-medium">Credits</span>
             </div>
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold">{balance.toLocaleString()}</span>
           </div>
         </div>
       )}
@@ -90,7 +83,10 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
       {/* Collapsed Credits Indicator */}
       {user && isCollapsed && (
         <div className="px-2 py-4 border-b border-white/10 flex justify-center">
-          <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full animate-pulse" title={`${balance.toLocaleString()} Credits`} />
+          <div className="flex flex-col items-center gap-1" title={`${balance.toLocaleString()} Credits`}>
+            <Coins className="w-5 h-5 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" />
+            <span className="text-xs bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold">{(balance / 1000).toFixed(0)}K</span>
+          </div>
         </div>
       )}
 
@@ -135,29 +131,45 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
 
       {/* Bottom User Info */}
       {user && (
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="absolute bottom-4 left-4 right-4 space-y-3">
           {!isCollapsed ? (
-            <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 rounded-lg p-3 border border-white/10">
-              <div className="flex items-center gap-3">
-                <img 
-                  src={user.avatar_url || '/api/placeholder/32/32'} 
-                  alt={user.display_name}
-                  className="w-8 h-8 rounded-full border border-white/20"
-                />
-                <div className="flex-1 min-w-0">
-                  <p className="text-white text-sm font-medium truncate">{user.display_name}</p>
-                  <p className="text-gray-400 text-xs truncate">@{user.username}</p>
+            <>
+              <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 rounded-lg p-3 border border-white/10">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={user.avatar_url || '/api/placeholder/32/32'} 
+                    alt={user.display_name}
+                    className="w-8 h-8 rounded-full border border-white/20"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-white text-sm font-medium truncate">@{user.username}</p>
+                    <p className="text-gray-400 text-xs truncate">@{user.username}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+              <button
+                onClick={logout}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 hover:border-red-500/50 text-red-400 hover:text-red-300 font-medium transition-all duration-200 group"
+              >
+                <LogOut className="w-5 h-5" />
+                <span>Sign Out</span>
+              </button>
+            </>
           ) : (
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center gap-3">
               <img 
                 src={user.avatar_url || '/api/placeholder/32/32'} 
                 alt={user.display_name}
                 className="w-8 h-8 rounded-full border-2 border-cyan-400/50 hover:border-cyan-400 transition-all cursor-pointer"
                 title={`${user.display_name} (@${user.username})`}
               />
+              <button
+                onClick={logout}
+                className="text-red-400 hover:text-red-300 transition-colors p-1 hover:bg-red-500/10 rounded"
+                title="Sign Out"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
             </div>
           )}
         </div>

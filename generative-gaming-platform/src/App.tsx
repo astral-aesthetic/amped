@@ -6,14 +6,14 @@ import { CreditProvider } from './contexts/CreditContext';
 import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard';
 import LoginPage from './pages/LoginPage';
-import GamesPage from './pages/GamesPage';
+import ArcadePage from './pages/ArcadePage';
 import AIGameGeneratorPage from './pages/AIGameGeneratorPage';
 import TrendingPage from './pages/TrendingPage';
 import FeaturedPage from './pages/FeaturedPage';
-import CommunityPage from './pages/CommunityPage';
+import CreatorHubPage from './pages/CreatorHubPage';
 import LeaderboardsPage from './pages/LeaderboardsPage';
-import ProfilePage from './pages/ProfilePage';
-import FAQPage from './pages/FAQPage';
+import SettingsPage from './pages/SettingsPage';
+import HelpSupportPage from './pages/HelpSupportPage';
 import PricingPage from './pages/PricingPage';
 import './App.css';
 
@@ -30,15 +30,15 @@ const App: React.FC = () => {
               {/* Main app with layout */}
               <Route path="/" element={<Layout />}>
                 <Route index element={<Dashboard />} />
-                <Route path="games" element={<GamesPage />} />
+                <Route path="games" element={<ArcadePage />} />
                 <Route path="generate" element={<AIGameGeneratorPage />} />
                 <Route path="trending" element={<TrendingPage />} />
                 <Route path="featured" element={<FeaturedPage />} />
-                <Route path="community" element={<CommunityPage />} />
+                <Route path="community" element={<CreatorHubPage />} />
                 <Route path="leaderboards" element={<LeaderboardsPage />} />
+                <Route path="settings" element={<SettingsPage />} />
+                <Route path="help" element={<HelpSupportPage />} />
                 <Route path="pricing" element={<PricingPage />} />
-                <Route path="profile" element={<ProfilePage />} />
-                <Route path="faq" element={<FAQPage />} />
                 
                 {/* Redirect unknown routes to home */}
                 <Route path="*" element={<Navigate to="/" replace />} />

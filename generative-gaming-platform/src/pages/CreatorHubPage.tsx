@@ -1,20 +1,24 @@
-import React from 'react';
-import { Users, MessageCircle, Calendar, Trophy, Star, Heart, Clock } from 'lucide-react';
+import React, { useState } from 'react';
+import { Users, MessageCircle, Calendar, Trophy, Star, Heart, Clock, Search, Sliders, UserPlus } from 'lucide-react';
 import { useGameData } from '../contexts/GameDataContext';
 import { Link } from 'react-router-dom';
 import ProgressBar from '../components/ui/ProgressBar';
 import FadeInSection from '../components/ui/FadeInSection';
 
-const CommunityPage: React.FC = () => {
+const CreatorHubPage: React.FC = () => {
   const { community, users } = useGameData();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
+  const [filterType, setFilterType] = useState<'all' | 'creators' | 'posts' | 'challenges' | 'events'>('all');
+  const [displayedPosts, setDisplayedPosts] = useState(5);
   
   if (!community) {
     return (
       <div className="p-8 flex items-center justify-center min-h-96">
         <div className="text-center">
           <Users className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-white mb-2">Loading Community...</h2>
-          <p className="text-slate-400">Please wait while we load community data</p>
+          <h2 className="text-xl font-semibold text-white mb-2">Loading Creator Hub...</h2>
+          <p className="text-slate-400">Please wait while we load creator hub data</p>
         </div>
       </div>
     );
@@ -50,23 +54,98 @@ const CommunityPage: React.FC = () => {
 
   return (
     <div className="p-8 space-y-8">
-      {/* Header */}
+      {/* Search Bar with Action Icons */}
       <FadeInSection>
-        <div className="text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-2xl mb-4">
-            <Users className="w-8 h-8 text-white" />
+        <div className="flex justify-center">
+          <div className="w-full max-w-4xl">
+            <div className="relative group flex-1 space-y-3">
+          <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-xl blur-lg group-focus-within:blur-xl opacity-75 group-focus-within:opacity-100 transition-all" />
+          <div className="relative flex items-center gap-3 bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 group-focus-within:border-green-400/50 p-4 transition-all">
+            {/* Action Icons - Inside Search Bar */}
+            <Link
+              to="/community"
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
+              title="My Friends"
+            >
+              <UserPlus className="w-5 h-5 text-green-400 group-hover/icon:text-green-300 transition-colors" />
+            </Link>
+            
+            <button
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
+              title="Messages"
+            >
+              <MessageCircle className="w-5 h-5 text-blue-400 group-hover/icon:text-blue-300 transition-colors" />
+            </button>
+            
+            <Link
+              to="/leaderboards"
+              className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
+              title="Leaderboards & Achievements"
+            >
+              <Trophy className="w-5 h-5 text-yellow-400 group-hover/icon:text-yellow-300 transition-colors" />
+            </Link>
+            
+            <div className="w-px h-6 bg-white/10" />
+            
+            <Search className="w-5 h-5 text-slate-400 group-focus-within:text-green-400 transition-colors" />
+            <input
+              type="text"
+              placeholder="Search creators, posts, challenges..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 bg-transparent text-white placeholder-slate-500 focus:outline-none"
+            />
+            {/* Filter Button */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowFilterMenu(!showFilterMenu)}
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors relative group/filter"
+                title="Filter options"
+              >
+                <Sliders className="w-5 h-5 text-slate-400 group-hover/filter:text-green-400 transition-colors" />
+              </button>
+              
+              {/* Filter Menu Dropdown */}
+              {showFilterMenu && (
+                <div className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-slate-900 to-slate-800 backdrop-blur-xl rounded-xl border border-white/10 p-4 z-50 shadow-xl">
+                  <p className="text-slate-300 text-sm font-semibold mb-3">Filter By Type</p>
+                  <div className="space-y-2">
+                    {[
+                      { value: 'all', label: 'All Content' },
+                      { value: 'creators', label: 'Creators' },
+                      { value: 'posts', label: 'Posts & Discussions' },
+                      { value: 'challenges', label: 'Challenges' },
+                      { value: 'events', label: 'Events' }
+                    ].map(option => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => {
+                          setFilterType(option.value as 'all' | 'creators' | 'posts' | 'challenges' | 'events');
+                          setShowFilterMenu(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 rounded-lg transition-all ${
+                          filterType === option.value
+                            ? 'bg-green-500/30 border border-green-400/50 text-green-300'
+                            : 'hover:bg-white/5 border border-transparent text-slate-300 hover:text-white'
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">
-            Community Hub
-          </h1>
-          <p className="text-slate-400 text-lg">
-            Connect with creators, join challenges, and be part of the gaming community
-          </p>
+            </div>
+          </div>
         </div>
       </FadeInSection>
 
-      {/* Community Stats */}
-      <FadeInSection delay={200}>
+      {/* Creator Hub Stats */}
+      <FadeInSection delay={50}>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6 text-center">
             <Users className="w-8 h-8 text-green-400 mx-auto mb-2" />
@@ -100,11 +179,11 @@ const CommunityPage: React.FC = () => {
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
               <MessageCircle className="w-6 h-6 text-blue-400" />
-              Community Feed
+              Creator Feed
             </h2>
           
           <div className="space-y-6">
-            {community.social_posts.map((post: any) => {
+            {community.social_posts.slice(0, displayedPosts).map((post: any) => {
               const author = getUser(post.user_id);
               return (
                 <div key={post.post_id} className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6">
@@ -121,7 +200,7 @@ const CommunityPage: React.FC = () => {
                           to={`/creators/${post.user_id}`}
                           className="text-white font-semibold hover:text-cyan-400 transition-colors"
                         >
-                          @{post.username}
+                          {author?.display_name || post.username}
                         </Link>
                         <span className="text-slate-400 text-sm">@{post.username}</span>
                         {author?.verified && (
@@ -186,6 +265,16 @@ const CommunityPage: React.FC = () => {
                 </div>
               );
             })}
+            
+            {/* Load More Button */}
+            {displayedPosts < community.social_posts.length && (
+              <button
+                onClick={() => setDisplayedPosts(displayedPosts + 5)}
+                className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 border border-blue-400/30 hover:border-blue-400/50 text-white font-semibold rounded-lg transition-all duration-200"
+              >
+                Load More Posts
+              </button>
+            )}
           </div>
           </div>
           
@@ -269,7 +358,7 @@ const CommunityPage: React.FC = () => {
                 return (
                   <div key={event.event_id} className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-lg border border-white/10 p-4 hover:border-white/20 transition-all duration-200">
                     <h3 className="text-white font-semibold mb-1">{event.title}</h3>
-                    <p className="text-slate-400 text-sm mb-2">by @{event.host_username}</p>
+                    <p className="text-slate-400 text-sm mb-2">by {host?.display_name || event.host_username}</p>
                     
                     <p className="text-slate-300 text-sm mb-3 line-clamp-2">{event.description}</p>
                     
@@ -350,10 +439,10 @@ const CommunityPage: React.FC = () => {
                     <div className="flex items-center gap-2 mb-2">
                       <img 
                         src={author?.avatar_url || '/api/placeholder/20/20'} 
-                        alt={thread.author_username}
+                        alt={author?.display_name || thread.author_username}
                         className="w-5 h-5 rounded-full"
                       />
-                      <span className="text-slate-400 text-sm">@{thread.author_username}</span>
+                      <span className="text-slate-400 text-sm">{author?.display_name || thread.author_username}</span>
                     </div>
                     
                     <div className="flex justify-between text-xs text-slate-400">
@@ -379,4 +468,4 @@ const CommunityPage: React.FC = () => {
   );
 };
 
-export default CommunityPage;
+export default CreatorHubPage;
