@@ -1,50 +1,108 @@
-# React + TypeScript + Vite
+# Amped - AI-Powered Gaming Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern gaming platform built with React, TypeScript, and Vite. Create, discover, and share games powered by AI.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎮 **AI Game Generator** - Create games from text prompts
+- 🔍 **Game Discovery** - Browse and explore community games
+- 👥 **Community** - Connect with other creators
+- 🏆 **Leaderboards** - Compete and track achievements
+- 💰 **Credit System** - Earn and spend credits on platform
+- 📱 **Responsive Design** - Works on desktop and mobile
+- ⚡ **Fast Performance** - Built with Vite for instant HMR
 
-## Expanding the ESLint configuration
+## Quick Start
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Local Development
 
-- Configure the top-level `parserOptions` property like this:
+```bash
+# Install dependencies
+npm install
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+# Start development server
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+The app will open at http://localhost:5173/
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Build for Production
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+npm run build
 ```
+
+This creates an optimized `dist/` folder ready for deployment.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Deployment
+
+### GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages via GitHub Actions.
+
+**Setup Instructions:**
+
+1. Go to repository **Settings** → **Pages**
+2. Set source to **GitHub Actions**
+3. Push to `main` branch
+4. The workflow automatically builds and deploys
+
+Your site will be available at: `https://astral-aesthetic.github.io/amped/`
+
+📖 **For detailed setup:** See [GITHUB_PAGES_SETUP.md](./GITHUB_PAGES_SETUP.md)
+
+### Alternative Deployment Options
+
+- **Vercel** - `vercel deploy`
+- **Netlify** - Connect repo and auto-deploy
+- **Self-hosted** - Upload `dist/` folder to any static host
+
+## Project Structure
+
+```
+generative-gaming-platform/
+├── src/
+│   ├── components/          # Reusable React components
+│   │   ├── layout/         # Layout components (Header, Sidebar, Footer)
+│   │   ├── ui/             # UI components
+│   │   └── ...
+│   ├── pages/              # Page components
+│   ├── contexts/           # React contexts (auth, credits, etc)
+│   ├── hooks/              # Custom React hooks
+│   ├── lib/                # Utility functions
+│   ├── App.tsx             # Main app component
+│   └── main.tsx            # React entry point
+├── public/                 # Static assets
+├── index.html              # HTML entry point
+├── vite.config.ts          # Vite configuration
+├── tsconfig.json           # TypeScript configuration
+└── package.json            # Dependencies & scripts
+```
+
+## Available Scripts
+
+- `npm run dev` - Start development server (HMR enabled)
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint
+
+## Technologies
+
+- **React 18** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Lightning-fast build tool
+- **Tailwind CSS** - Utility-first styling
+- **React Router** - Client-side routing
+- **Lucide Icons** - Beautiful icons
+
+## Browser Support
+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
