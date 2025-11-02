@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Good Games - Gaming at Lightspeed | AI-Powered Game Creation Platform</title>
   <meta name="description" content="Transform your ideas into playable games with AI. Join thousands of creators building the future of interactive entertainment on Good Games." />
   <meta name="keywords" content="AI game creation, game generator, Unity games, interactive entertainment, game development, Good Games" />
@@ -18,6 +21,13 @@
 
 <body>
   <div id="root"></div>
+  <script>
+    // Register service worker for cache management
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/gg/sw.js', { scope: '/gg/' })
+        .catch(err => console.log('SW registration failed:', err));
+    }
+  </script>
 </body>
 
 </html>
