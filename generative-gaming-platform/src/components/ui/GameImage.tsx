@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ImageIcon, Gamepad2 } from 'lucide-react';
 
 interface GameImageProps {
@@ -48,12 +48,24 @@ const GameImage: React.FC<GameImageProps> = ({
   const fallbackIndex = title ? Math.abs(title.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % fallbackImages.length : 0;
   const fallbackSrc = fallbackImages[fallbackIndex];
 
+  // Ensure image src is properly formatted and handles both /imgs/ and /images/ paths
+  const normalizedSrc = useMemo(() => {
+    if (!src) return null;
+    // Convert /images/ to /imgs/ for consistency
+    let normalized = src.replace('/images/', '/imgs/');
+    // Ensure it starts with /
+    if (!normalized.startsWith('/')) {
+      normalized = '/' + normalized;
+    }
+    return normalized;
+  }, [src]);
+
   return (
     <div className={`${aspectClasses[aspectRatio]} overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 ${className}`}>
-      {!imageError && src ? (
+      {!imageError && normalizedSrc ? (
         <>
           <img 
-            src={src} 
+            src={normalizedSrc} 
             alt={alt}
             className={`w-full h-full object-cover transition-opacity duration-200 ${
               isLoaded ? 'opacity-100' : 'opacity-0'

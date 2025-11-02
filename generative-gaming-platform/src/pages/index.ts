@@ -1,5 +1,5 @@
 // Export all pages for easier importing
-export { default as HomePage } from './HomePage';
+export { default as Dashboard } from './Dashboard';
 export { default as LoginPage } from './LoginPage';
 export { default as GamesPage } from './GamesPage';
 export { default as AIGameGeneratorPage } from './AIGameGeneratorPage';

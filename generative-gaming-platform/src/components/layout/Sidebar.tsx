@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  Home, 
+  LayoutDashboard, 
   Gamepad2, 
   User, 
   Trophy, 
@@ -30,7 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
   const { balance } = useCredits();
 
   const navigationItems = [
-    { icon: Home, label: 'My Dashboard', path: '/', color: 'text-cyan-400' },
+    { icon: LayoutDashboard, label: 'My Dashboard', path: '/', color: 'text-cyan-400' },
     { icon: Gamepad2, label: 'Discover Games', path: '/games', color: 'text-indigo-400' },
     { icon: Sparkles, label: 'AI Game Generator', path: '/generate', color: 'text-purple-400' },
     { icon: Coins, label: 'Pricing', path: '/pricing', color: 'text-yellow-400' },

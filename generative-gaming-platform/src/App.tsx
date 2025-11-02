@@ -4,7 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { GameDataProvider } from './contexts/GameDataContext';
 import { CreditProvider } from './contexts/CreditContext';
 import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
+import Dashboard from './pages/Dashboard';
 import LoginPage from './pages/LoginPage';
 import GamesPage from './pages/GamesPage';
 import AIGameGeneratorPage from './pages/AIGameGeneratorPage';
@@ -29,7 +29,7 @@ const App: React.FC = () => {
               
               {/* Main app with layout */}
               <Route path="/" element={<Layout />}>
-                <Route index element={<HomePage />} />
+                <Route index element={<Dashboard />} />
                 <Route path="games" element={<GamesPage />} />
                 <Route path="generate" element={<AIGameGeneratorPage />} />
                 <Route path="trending" element={<TrendingPage />} />
