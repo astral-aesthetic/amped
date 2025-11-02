@@ -4,7 +4,7 @@ import { defineConfig } from "vite"
 import sourceIdentifierPlugin from 'vite-plugin-source-identifier'
 
 export default defineConfig({
-  base: '/good-games/',
+  base: '/gg/',
   plugins: [
     react(), 
     sourceIdentifierPlugin({

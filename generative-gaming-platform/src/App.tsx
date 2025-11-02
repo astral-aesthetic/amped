@@ -22,7 +22,7 @@ const App: React.FC = () => {
     <AuthProvider>
       <GameDataProvider>
         <CreditProvider>
-          <Router basename="/good-games">
+          <Router basename="/gg">
             <Routes>
               {/* Login page without layout */}
               <Route path="/login" element={<LoginPage />} />
