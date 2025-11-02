@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sparkles, TrendingUp, Star, Users, Trophy, Zap, Gamepad2, ArrowRight, Play, Coins, Search, Clock, Flame, Heart, Sliders, UserPlus, MessageCircle, Download } from 'lucide-react';
+import { Sparkles, TrendingUp, Star, Users, Trophy, Zap, Gamepad2, ArrowRight, Play, Coins, Search, Clock, Flame, Heart, Sliders, UserPlus, MessageCircle, Download, Settings, Gamepad } from 'lucide-react';
 import { useGameData } from '../contexts/GameDataContext';
 import GameCard from '../components/games/GameCard';
 import FadeInSection from '../components/ui/FadeInSection';
+import QuickActionButton from '../components/ui/QuickActionButton';
 
 interface PlatformStats {
   totalGames: number;
@@ -89,18 +90,18 @@ const HomePage: React.FC = () => {
   };
 
   const quickActions = [
-    { icon: Sparkles, label: 'Generate Game', path: '/generate', color: 'from-purple-500 to-pink-500' },
-    { icon: Coins, label: 'Pricing Guide', path: '/pricing', color: 'from-yellow-500 to-orange-500' },
-    { icon: TrendingUp, label: 'Trending', path: '/trending', color: 'from-orange-500 to-red-500' },
-    { icon: Star, label: 'Featured', path: '/featured', color: 'from-yellow-500 to-orange-500' },
-    { icon: Users, label: 'Community', path: '/community', color: 'from-green-500 to-blue-500' }
+    { icon: Sparkles, label: 'Generate Game', path: '/generate', color: 'from-purple-500 to-pink-500', iconHoverColor: '#ec4899' },
+    { icon: Coins, label: 'Pricing Guide', path: '/pricing', color: 'from-yellow-500 to-orange-500', iconHoverColor: '#f97316' },
+    { icon: Gamepad, label: 'Arcade', path: '/arcade', color: 'from-orange-500 to-red-500', iconHoverColor: '#ef4444' },
+    { icon: Gamepad2, label: 'Creator Hub', path: '/creator-hub', color: 'from-yellow-500 to-orange-500', iconHoverColor: '#f97316' },
+    { icon: Settings, label: 'Settings', path: '/settings', color: 'from-blue-500 to-cyan-500', iconHoverColor: '#06b6d4' }
   ];
 
   const getActivityIcon = (type: string) => {
     switch (type) {
-      case 'played': return <Play className="w-4 h-4 text-blue-400" />;
-      case 'created': return <Sparkles className="w-4 h-4 text-purple-400" />;
-      case 'favorited': return <Heart className="w-4 h-4 text-pink-400" />;
+      case 'played': return <Play className="w-4 h-4 text-slate-400" />;
+      case 'created': return <Sparkles className="w-4 h-4 text-slate-400" />;
+      case 'favorited': return <Heart className="w-4 h-4 text-slate-400" />;
       default: return <Clock className="w-4 h-4 text-slate-400" />;
     }
   };
@@ -123,7 +124,7 @@ const HomePage: React.FC = () => {
                 className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
                 title="My Friends"
               >
-                <UserPlus className="w-5 h-5 text-green-400 group-hover/icon:text-green-300 transition-colors" />
+                <UserPlus className="w-5 h-5 text-slate-400 group-hover/icon:text-slate-300 transition-colors" />
               </Link>
               
               <button
@@ -131,7 +132,7 @@ const HomePage: React.FC = () => {
                 className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
                 title="Messages"
               >
-                <MessageCircle className="w-5 h-5 text-blue-400 group-hover/icon:text-blue-300 transition-colors" />
+                <MessageCircle className="w-5 h-5 text-slate-400 group-hover/icon:text-slate-300 transition-colors" />
               </button>
               
               <Link
@@ -139,12 +140,12 @@ const HomePage: React.FC = () => {
                 className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
                 title="Leaderboards & Achievements"
               >
-                <Trophy className="w-5 h-5 text-yellow-400 group-hover/icon:text-yellow-300 transition-colors" />
+                <Trophy className="w-5 h-5 text-slate-400 group-hover/icon:text-slate-300 transition-colors" />
               </Link>
               
               <div className="w-px h-6 bg-white/10" />
               
-              <Search className="w-5 h-5 text-slate-400 group-focus-within:text-pink-400 transition-colors" />
+              <Search className="w-5 h-5 text-slate-400 group-focus-within:text-slate-300 transition-colors" />
               <input
                 type="text"
                 placeholder="Search games, creators, genres..."
@@ -160,7 +161,7 @@ const HomePage: React.FC = () => {
                   className="p-2 hover:bg-white/10 rounded-lg transition-colors relative group/filter"
                   title="Filter and sort options"
                 >
-                  <Sliders className="w-5 h-5 text-slate-400 group-hover/filter:text-cyan-400 transition-colors" />
+                  <Sliders className="w-5 h-5 text-slate-400 group-hover/filter:text-slate-300 transition-colors" />
                 </button>
                 
                 {/* Filter Menu Dropdown */}
@@ -283,17 +284,17 @@ const HomePage: React.FC = () => {
               </div>
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
-                  <Star className="w-6 h-6 text-yellow-400" />
+                  <Star className="w-6 h-6 text-slate-400" />
                   <span className="text-white font-semibold text-lg">{(featuredGames[0] as any)?.rating || 4.8}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Play className="w-6 h-6 text-blue-400" />
+                  <Play className="w-6 h-6 text-slate-400" />
                   <span className="text-white font-semibold text-lg">{((featuredGames[0] as any)?.plays?.toLocaleString?.()) || '15.2K'}</span>
                 </div>
               </div>
               <Link
                 to={`/games/${featuredGames[0]?.game_id || '#'}`}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white rounded-xl font-bold text-lg transition-all hover:scale-105 w-full"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white rounded-xl font-bold text-lg transition-all hover:scale-105 w-fit"
               >
                 <Play className="w-5 h-5" />
                 Play Now
@@ -325,26 +326,20 @@ const HomePage: React.FC = () => {
       <FadeInSection delay={100}>
         <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-2xl border border-white/10 p-6 lg:p-8">
           <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <Zap className="w-6 h-6 text-cyan-400" />
+            <Zap className="w-6 h-6 text-slate-400" />
             Quick Actions
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {quickActions.map((action) => {
-              const Icon = action.icon;
-              return (
-                <Link
-                  key={action.path}
-                  to={action.path}
-                  className="group relative p-4 bg-black/30 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-r ${action.color} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300`} />
-                  <div className="relative">
-                    <Icon className="w-8 h-8 text-white group-hover:scale-110 transition-transform duration-200 mb-2" />
-                    <p className="text-sm text-white font-medium">{action.label}</p>
-                  </div>
-                </Link>
-              );
-            })}
+            {quickActions.map((action) => (
+              <QuickActionButton
+                key={action.path}
+                icon={action.icon}
+                label={action.label}
+                path={action.path}
+                color={action.color}
+                iconHoverColor={action.iconHoverColor}
+              />
+            ))}
           </div>
         </div>
       </FadeInSection>
@@ -355,7 +350,7 @@ const HomePage: React.FC = () => {
           {/* Recent Activity */}
           <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-cyan-400" />
+              <Clock className="w-5 h-5 text-slate-400" />
               Recent Activity
             </h3>
             <div className="space-y-3">
@@ -374,7 +369,7 @@ const HomePage: React.FC = () => {
           {/* Game Dev XP Progress */}
           <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-              <Zap className="w-5 h-5 text-yellow-400" />
+              <Zap className="w-5 h-5 text-slate-400" />
               Game Dev XP Progress
             </h3>
             <div className="space-y-4">
@@ -416,13 +411,24 @@ const HomePage: React.FC = () => {
       <FadeInSection delay={200}>
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Flame className="w-6 h-6 text-orange-400" />
+            <Flame className="w-6 h-6 text-slate-400" />
             Continue Playing
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {continuePlayingGames.slice(0, 3).map(game => (
-              <GameCard key={game.game_id} game={game as any} />
-            ))}
+          <div className="relative">
+            {/* Scrolling carousel container */}
+            <div className="overflow-x-auto pb-4 scrollbar-hide">
+              <div className="flex gap-6 min-w-min">
+                {continuePlayingGames.map(game => (
+                  <div key={game.game_id} className="flex-shrink-0 w-[864px]">
+                    <GameCard game={game as any} tall />
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Gradient overlays for scroll effect */}
+            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-900 to-transparent pointer-events-none z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-900 to-transparent pointer-events-none z-10" />
           </div>
         </div>
       </FadeInSection>
@@ -431,7 +437,7 @@ const HomePage: React.FC = () => {
       <FadeInSection delay={250}>
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Heart className="w-6 h-6 text-pink-400" />
+            <Heart className="w-6 h-6 text-slate-400" />
             Favorite Games
           </h2>
           <div className="relative">
@@ -440,79 +446,66 @@ const HomePage: React.FC = () => {
               <div className="flex gap-6 min-w-min">
                 {favoriteGames.map(game => (
                   <div key={game.game_id} className="flex-shrink-0 w-72">
-                    {/* Custom Favorite Games Card */}
-                    <div className="group relative h-96 bg-gradient-to-br from-slate-900/90 to-slate-800/90 backdrop-blur-xl rounded-2xl border border-white/10 hover:border-pink-500/50 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/20 flex flex-col">
-                      {/* Background Gradient Effect */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-pink-600/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Game Cover Image */}
-                      <div className="relative h-48 overflow-hidden">
+                    {/* Sleek Favorite Games Card */}
+                    <div className="group relative h-80 bg-black rounded-xl overflow-hidden transition-all duration-300 flex flex-col">
+                      {/* Full-width Game Image */}
+                      <div className="absolute inset-0 overflow-hidden">
                         <img
-                          src={game.image || game.thumbnail || '/api/placeholder/300/200'}
+                          src={(game as any)?.cover_image || (game as any)?.image || (game as any)?.thumbnail || '/api/placeholder/300/400'}
                           alt={game.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           onError={(e) => {
                             const img = e.target as HTMLImageElement;
-                            img.src = '/api/placeholder/300/200';
+                            img.src = '/api/placeholder/300/400';
                           }}
                         />
-                        {/* Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent" />
-                        
-                        {/* Rating Badge - Top Right */}
-                        <div className="absolute top-3 right-3 bg-gradient-to-r from-yellow-500 to-amber-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1 shadow-lg">
-                          <Star className="w-4 h-4 fill-current" />
-                          {(game.rating || 4.8).toFixed(1)}
-                        </div>
-                        
-                        {/* Play Button - Centered */}
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 shadow-xl transform scale-90 group-hover:scale-100 transition-transform duration-200">
-                            <Play className="w-4 h-4 fill-current" />
-                            Play
-                          </button>
-                        </div>
+                        {/* Overlay - Always visible */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
                       
-                      {/* Game Info */}
-                      <div className="relative p-4 flex-1 flex flex-col justify-between">
-                        {/* Title and Creator */}
-                        <div className="min-w-0">
-                          <h3 className="text-white font-bold text-lg line-clamp-2 group-hover:text-pink-300 transition-colors mb-1">
-                            {game.title}
-                          </h3>
-                          <p className="text-slate-400 text-xs">
-                            {game.genre || 'Game'}
-                          </p>
-                        </div>
-                        
-                        {/* Stats Grid */}
-                        <div className="grid grid-cols-3 gap-2 py-3 border-t border-white/10">
-                          <div className="text-center">
-                            <div className="flex justify-center mb-1">
-                              <Download className="w-4 h-4 text-cyan-400" />
-                            </div>
-                            <p className="text-xs text-slate-300 font-medium">{(game.plays ? game.plays / 1000 : 15.2).toFixed(1)}K</p>
-                            <p className="text-xs text-slate-500">Plays</p>
+                      {/* Content - Bottom Title */}
+                      <div className="relative p-4 flex flex-col justify-between h-full">
+                        {/* Stats Panel - Hover Reveal */}
+                        <div className="flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          {/* Rating */}
+                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
+                            <span className="text-white font-semibold">{((game as any)?.stats?.rating || game.rating || 4.8).toFixed(1)}</span>
+                            <span className="text-slate-300 text-sm ml-auto">({((game as any)?.stats?.total_ratings || 485)} ratings)</span>
                           </div>
-                          <div className="text-center">
-                            <div className="flex justify-center mb-1">
-                              <Heart className="w-4 h-4 text-pink-400" />
-                            </div>
-                            <p className="text-xs text-slate-300 font-medium">{(game.rating ? game.rating * 100 : 480).toLocaleString().substring(0, 3)}</p>
-                            <p className="text-xs text-slate-500">Favs</p>
+                          
+                          {/* Downloads */}
+                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                            <Download className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                            <span className="text-white font-semibold">{((game as any)?.stats?.downloads ? (game as any).stats.downloads / 1000 : 15.2).toFixed(1)}K</span>
+                            <span className="text-slate-300 text-sm">Downloads</span>
                           </div>
-                          <div className="text-center">
-                            <div className="flex justify-center mb-1">
-                              <Users className="w-4 h-4 text-green-400" />
-                            </div>
-                            <p className="text-xs text-slate-300 font-medium">9.2K</p>
-                            <p className="text-xs text-slate-500">Players</p>
+                          
+                          {/* Plays */}
+                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                            <Play className="w-4 h-4 text-green-400 flex-shrink-0" />
+                            <span className="text-white font-semibold">{((game as any)?.stats?.plays ? (game as any).stats.plays / 1000 : 9.2).toFixed(1)}K</span>
+                            <span className="text-slate-300 text-sm">Plays</span>
+                          </div>
+                          
+                          {/* Favorites */}
+                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                            <Heart className="w-4 h-4 text-pink-400 flex-shrink-0" />
+                            <span className="text-white font-semibold">{((game as any)?.stats?.favorites ? (game as any).stats.favorites / 1000 : 2.8).toFixed(1)}K</span>
+                            <span className="text-slate-300 text-sm">Favorites</span>
                           </div>
                         </div>
-                        
-                        {/* Action Button */}
-                        <button className="w-full mt-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white py-2 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg hover:shadow-pink-500/30">
+
+                        {/* Title - Bottom Corner */}
+                        <h3 className="text-white font-bold text-lg line-clamp-2 drop-shadow-lg">
+                          {game.title}
+                        </h3>
+                      </div>
+                      
+                      {/* Play Button - Bottom Hover */}
+                      <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-2 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
+                          <Play className="w-4 h-4 fill-current" />
                           Play Now
                         </button>
                       </div>
@@ -534,22 +527,22 @@ const HomePage: React.FC = () => {
         <section id="games-section">
           {featuredGames.length > 0 && (
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                  <Star className="w-6 h-6 text-yellow-400" />
-                  All Featured Games
-                </h2>
-                <Link 
-                  to="/featured" 
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium flex items-center gap-1"
-                >
-                  View All
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {featuredGames.slice(0, 6).map(game => (
-                  <GameCard key={game.game_id} game={game} />
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2 mb-6">
+                <Star className="w-6 h-6 text-slate-400" />
+                All Featured Games
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-max">
+                {featuredGames.slice(0, 6).map((game, index) => (
+                  <div key={game.game_id} className={`${
+                    index === 0 ? 'sm:col-span-2 lg:col-span-2 lg:row-span-2' :
+                    index === 1 ? 'sm:col-span-1 lg:col-span-1' :
+                    index === 2 ? 'sm:col-span-1 lg:col-span-1' :
+                    index === 3 ? 'sm:col-span-1 lg:col-span-2' :
+                    index === 4 ? 'sm:col-span-1 lg:col-span-1' :
+                    'sm:col-span-1 lg:col-span-1'
+                  }`}>
+                    <GameCard game={game} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -558,23 +551,25 @@ const HomePage: React.FC = () => {
           {trendingGames.length > 0 && (
             <FadeInSection delay={400}>
               <div className="mt-12">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                    <TrendingUp className="w-6 h-6 text-orange-400" />
-                    Trending Games
-                  </h2>
-                  <Link 
-                    to="/trending" 
-                    className="text-cyan-400 hover:text-cyan-300 transition-colors font-medium flex items-center gap-1"
-                  >
-                    View All
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {trendingGames.slice(0, 8).map(game => (
-                    <GameCard key={game.game_id} game={game} compact />
-                  ))}
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2 mb-6">
+                  <TrendingUp className="w-6 h-6 text-slate-400" />
+                  Trending Games
+                </h2>
+                <div className="relative">
+                  {/* Scrolling carousel container */}
+                  <div className="overflow-x-auto pb-4 scrollbar-hide">
+                    <div className="flex gap-6 min-w-min">
+                      {trendingGames.map(game => (
+                        <div key={game.game_id} className="flex-shrink-0 w-[504px]">
+                          <GameCard game={game} compact />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Gradient overlays for scroll effect */}
+                  <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-900 to-transparent pointer-events-none z-10" />
+                  <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-900 to-transparent pointer-events-none z-10" />
                 </div>
               </div>
             </FadeInSection>

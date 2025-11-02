@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Gamepad2, 
@@ -25,6 +25,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
   const { balance } = useCredits();
 
@@ -66,31 +67,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
           </button>
         </div>
       </div>
-
-      {/* User Credits (when logged in) */}
-      {user && !isCollapsed && (
-        <div className="p-4 border-b border-white/10">
-          <div className="bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-indigo-600/30 rounded-lg p-3 border border-white/5">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Coins className="w-4 h-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" />
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent text-sm font-medium">Credits</span>
-              </div>
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold">{balance.toLocaleString()}</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Collapsed Credits Indicator */}
-      {user && isCollapsed && (
-        <div className="px-2 py-4 border-b border-white/10 flex justify-center">
-          <div className="flex flex-col items-center gap-1" title={`${balance.toLocaleString()} Credits`}>
-            <Coins className="w-5 h-5 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" />
-            <span className="text-xs bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold">{(balance / 1000).toFixed(0)}K</span>
-          </div>
-        </div>
-      )}
 
       {/* Navigation */}
       <nav className={`${isCollapsed ? 'p-2' : 'p-4'} space-y-2`}>
@@ -137,15 +113,25 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
           {!isCollapsed ? (
             <>
               <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 rounded-lg p-3 border border-white/10">
-                <div className="flex items-center gap-3">
-                  <img 
-                    src={user.avatar_url || '/api/placeholder/32/32'} 
-                    alt={user.display_name}
-                    className="w-8 h-8 rounded-full border border-white/20"
-                  />
+                <div className="flex flex-col items-center gap-3 text-center">
+                  <button
+                    onClick={() => navigate('/settings')}
+                    className="w-12 h-12 rounded-full border-2 border-cyan-400/50 hover:border-cyan-400 transition-all cursor-pointer overflow-hidden hover:shadow-lg hover:shadow-cyan-500/20"
+                    title="Click to go to Settings"
+                  >
+                    <img 
+                      src={user.avatar_url || '/api/placeholder/48/48'} 
+                      alt={user.display_name}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
                   <div className="flex-1 min-w-0">
                     <p className="text-white text-sm font-medium truncate">{user.display_name}</p>
                     <p className="text-gray-400 text-xs truncate">@{user.username}</p>
+                    <div className="mt-2 flex items-center justify-center gap-1">
+                      <Coins className="w-3 h-3 text-yellow-400" />
+                      <span className="text-xs font-semibold text-yellow-400">{balance.toLocaleString()}</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -159,12 +145,21 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
             </>
           ) : (
             <div className="flex flex-col items-center gap-3">
-              <img 
-                src={user.avatar_url || '/api/placeholder/32/32'} 
-                alt={user.display_name}
-                className="w-8 h-8 rounded-full border-2 border-cyan-400/50 hover:border-cyan-400 transition-all cursor-pointer"
-                title={`${user.display_name} (@${user.username})`}
-              />
+              <button
+                onClick={() => navigate('/settings')}
+                className="w-10 h-10 rounded-full border-2 border-cyan-400/50 hover:border-cyan-400 transition-all cursor-pointer overflow-hidden hover:shadow-lg hover:shadow-cyan-500/20"
+                title="Click to go to Settings"
+              >
+                <img 
+                  src={user.avatar_url || '/api/placeholder/40/40'} 
+                  alt={user.display_name}
+                  className="w-full h-full object-cover"
+                />
+              </button>
+              <div className="flex flex-col items-center gap-1" title={`${balance.toLocaleString()} Credits`}>
+                <Coins className="w-4 h-4 text-yellow-400" />
+                <span className="text-xs font-bold text-yellow-400">{(balance / 1000).toFixed(0)}K</span>
+              </div>
               <button
                 onClick={logout}
                 className="text-red-400 hover:text-red-300 transition-colors p-1 hover:bg-red-500/10 rounded"

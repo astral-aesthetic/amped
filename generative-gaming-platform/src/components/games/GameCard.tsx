@@ -37,9 +37,10 @@ interface Game {
 interface GameCardProps {
   game: Game;
   compact?: boolean;
+  tall?: boolean;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ game, compact = false }) => {
+const GameCard: React.FC<GameCardProps> = ({ game, compact = false, tall = false }) => {
   const { user } = useAuth();
   const { balance, spendCredits } = useCredits();
   const [isLiked, setIsLiked] = useState(false);
@@ -88,138 +89,113 @@ const GameCard: React.FC<GameCardProps> = ({ game, compact = false }) => {
     }
   };
 
-  const cardClasses = compact 
-    ? "bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden group hover:border-white/20 transition-all duration-300 hover:scale-105 h-[440px] flex flex-col"
-    : "bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden group hover:border-white/20 transition-all duration-300 hover:scale-[1.02] h-[560px] flex flex-col";
+  const cardHeight = compact ? "h-72" : tall ? "h-[480px]" : "h-80";
 
   return (
-    <div className={cardClasses}>
-      {/* Game Cover */}
-      <div className="relative aspect-video overflow-hidden">
+    <div className={`group relative ${cardHeight} bg-black rounded-xl overflow-hidden`}>
+      {/* Full-width image background */}
+      <div className="absolute inset-0">
         <GameImage 
           src={game.cover_image}
           alt={game.title}
           title={game.title}
           category={game.category}
-          className="group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
-        {/* Featured Badge */}
-        {localStats.featured && (
-          <div className="absolute top-3 left-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1">
-            <Star className="w-3 h-3 fill-current" />
-            Featured
-          </div>
-        )}
-        
-        {/* Premium Badge */}
-        {game.monetization.is_premium && (
-          <div className="absolute top-3 right-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
-            Premium
-          </div>
-        )}
-        
-        {/* Play Button Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button 
-            onClick={handlePlay}
-            disabled={!user || balance < CREDIT_COSTS.PLAY_GAME}
-            className="bg-cyan-500 hover:bg-cyan-400 disabled:bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transform scale-90 hover:scale-100 transition-transform duration-200"
-          >
-            <Play className="w-4 h-4 fill-current" />
-            Play (10 credits)
-          </button>
-        </div>
+        {/* Dynamic overlay - subtle normally, intensifies on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
       
-      {/* Game Info */}
-      <div className={compact ? "p-4 flex-1 flex flex-col" : "p-5 flex-1 flex flex-col"}>
-        <div className="flex items-start justify-between mb-2">
-          <div className="flex-1 min-w-0">
-            <Link 
-              to={`/games/${game.game_id}`}
-              className="text-white font-semibold hover:text-cyan-400 transition-colors line-clamp-1"
-            >
-              {game.title}
-            </Link>
-            <Link 
-              to={`/creators/${game.creator_id}`}
-              className="text-slate-400 text-sm hover:text-cyan-400 transition-colors"
-            >
-              by {game.creator_username}
-            </Link>
-          </div>
-          
+      {/* Featured Badge */}
+      {localStats.featured && (
+        <div className="absolute top-3 left-3 z-10 text-white px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1">
+          <Star className="w-3 h-3 fill-current" />
+          Featured
+        </div>
+      )}
+      
+      {/* Premium Badge */}
+      {game.monetization.is_premium && (
+        <div className="absolute top-3 right-3 z-10 text-white px-2 py-1 rounded-lg text-xs font-bold">
+          Premium
+        </div>
+      )}
+      
+      {/* Content - stats hidden until hover */}
+      <div className="relative z-20 p-4 h-full flex flex-col justify-between">
+        {/* Stats Panel - hidden by default, revealed on hover */}
+        <div className="flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {/* Rating */}
-          <div className="flex items-center gap-1 text-yellow-400">
-            <Star className="w-4 h-4 fill-current" />
-            <span className="text-sm font-medium">{localStats.rating.toFixed(1)}</span>
-          </div>
-        </div>
-        
-        {/* Description */}
-        {!compact && (
-          <p className="text-slate-300 text-sm mb-3 line-clamp-2">
-            {game.description}
-          </p>
-        )}
-        
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1 mb-3">
-          {game.tags.slice(0, compact ? 2 : 3).map(tag => (
-            <span key={tag} className="bg-gradient-to-r from-slate-700/40 to-slate-600/40 backdrop-blur-xl border border-white/10 text-slate-200 px-2 py-1 rounded text-xs font-medium shadow-lg">
-              {tag}
+          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+            <Star className="w-4 h-4 text-yellow-400 fill-current" />
+            <span className="text-white font-semibold text-sm">
+              {(localStats.rating || 4.8).toFixed(1)}
             </span>
-          ))}
-        </div>
-        
-        {/* Stats */}
-        <div className="flex items-center justify-between text-slate-400 text-xs mb-3">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">
-              <Download className="w-3 h-3" />
-              {localStats.downloads.toLocaleString()}
-            </div>
-            <div className="flex items-center gap-1">
-              <Play className="w-3 h-3" />
-              {localStats.plays.toLocaleString()}
-            </div>
-            <div className="flex items-center gap-1">
-              <Heart className="w-3 h-3" />
-              {localStats.favorites.toLocaleString()}
-            </div>
+            <span className="text-white/60 text-xs">
+              ({(localStats.total_ratings || 0).toLocaleString()} ratings)
+            </span>
           </div>
-          <div className="flex items-center gap-1">
-            <Calendar className="w-3 h-3" />
-            {formatDate(game.created_date)}
-          </div>
-        </div>
-        
-        {/* Action Buttons */}
-        <div className="flex items-center gap-2 mt-auto">
-          <button 
-            onClick={handleDownload}
-            disabled={!user || balance < CREDIT_COSTS.DOWNLOAD_GAME}
-            className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 disabled:from-gray-600 disabled:to-gray-600 text-white px-3 py-2 rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-all duration-200"
-          >
-            <Download className="w-4 h-4" />
-            Download (100 credits)
-          </button>
           
-          <button 
-            onClick={handleFavorite}
-            disabled={!user}
-            className={`px-3 py-2 rounded-lg transition-all duration-200 ${
-              isLiked 
-                ? 'bg-red-500 hover:bg-red-400 text-white' 
-                : 'bg-slate-700 hover:bg-slate-600 text-slate-300'
-            }`}
+          {/* Downloads */}
+          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+            <Download className="w-4 h-4 text-cyan-400" />
+            <span className="text-white font-semibold text-sm">
+              {(localStats.downloads / 1000).toFixed(1)}K Downloads
+            </span>
+          </div>
+          
+          {/* Plays */}
+          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+            <Play className="w-4 h-4 text-green-400" />
+            <span className="text-white font-semibold text-sm">
+              {(localStats.plays / 1000).toFixed(1)}K Plays
+            </span>
+          </div>
+          
+          {/* Favorites */}
+          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+            <Heart className="w-4 h-4 text-pink-400" />
+            <span className="text-white font-semibold text-sm">
+              {(localStats.favorites / 1000).toFixed(1)}K Favorites
+            </span>
+          </div>
+        </div>
+
+        {/* Title and Buttons at Bottom */}
+        <div className="flex flex-col gap-3">
+          {/* Title - bottom-left corner */}
+          <Link 
+            to={`/games/${game.game_id}`}
+            className="text-white font-bold text-lg line-clamp-2 drop-shadow-lg hover:text-cyan-300 transition-colors"
           >
-            <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-          </button>
+            {game.title}
+          </Link>
+
+          {/* Action Buttons - hidden by default, revealed on hover */}
+          <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {/* Play Button with Credit Cost - Purple to Pink Gradient */}
+            <button 
+              onClick={handlePlay}
+              disabled={!user || balance < CREDIT_COSTS.PLAY_GAME}
+              className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 disabled:from-gray-600 disabled:to-gray-600 text-white font-bold py-2 rounded-lg flex items-center justify-center gap-2 transition-all duration-200"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>Play</span>
+              <span className="text-xs">({CREDIT_COSTS.PLAY_GAME})</span>
+            </button>
+
+            {/* Download Button with Credit Cost - Blue Gradient */}
+            <button 
+              onClick={handleDownload}
+              disabled={!user || balance < CREDIT_COSTS.DOWNLOAD_GAME}
+              className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 disabled:from-gray-600 disabled:to-gray-600 text-white font-bold py-2 rounded-lg flex items-center justify-center gap-2 transition-all duration-200"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download</span>
+              <span className="text-xs">({CREDIT_COSTS.DOWNLOAD_GAME})</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

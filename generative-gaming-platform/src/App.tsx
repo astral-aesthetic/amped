@@ -7,7 +7,7 @@ import Layout from './components/layout/Layout';
 import Dashboard from './pages/Dashboard';
 import LoginPage from './pages/LoginPage';
 import ArcadePage from './pages/ArcadePage';
-import AIGameGeneratorPage from './pages/AIGameGeneratorPage';
+import GeneratePage from './pages/GeneratePage';
 import TrendingPage from './pages/TrendingPage';
 import FeaturedPage from './pages/FeaturedPage';
 import CreatorHubPage from './pages/CreatorHubPage';
@@ -31,7 +31,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Layout />}>
                 <Route index element={<Dashboard />} />
                 <Route path="games" element={<ArcadePage />} />
-                <Route path="generate" element={<AIGameGeneratorPage />} />
+                <Route path="generate" element={<GeneratePage />} />
                 <Route path="trending" element={<TrendingPage />} />
                 <Route path="featured" element={<FeaturedPage />} />
                 <Route path="community" element={<CreatorHubPage />} />

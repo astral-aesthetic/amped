@@ -67,14 +67,14 @@ const CreatorHubPage: React.FC = () => {
               className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
               title="My Friends"
             >
-              <UserPlus className="w-5 h-5 text-green-400 group-hover/icon:text-green-300 transition-colors" />
+              <UserPlus className="w-5 h-5 text-slate-400 group-hover/icon:text-slate-300 transition-colors" />
             </Link>
             
             <button
               className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
               title="Messages"
             >
-              <MessageCircle className="w-5 h-5 text-blue-400 group-hover/icon:text-blue-300 transition-colors" />
+              <MessageCircle className="w-5 h-5 text-slate-400 group-hover/icon:text-slate-300 transition-colors" />
             </button>
             
             <Link
@@ -82,12 +82,12 @@ const CreatorHubPage: React.FC = () => {
               className="p-2 hover:bg-white/10 rounded-lg transition-colors group/icon flex-shrink-0"
               title="Leaderboards & Achievements"
             >
-              <Trophy className="w-5 h-5 text-yellow-400 group-hover/icon:text-yellow-300 transition-colors" />
+              <Trophy className="w-5 h-5 text-slate-400 group-hover/icon:text-slate-300 transition-colors" />
             </Link>
             
             <div className="w-px h-6 bg-white/10" />
             
-            <Search className="w-5 h-5 text-slate-400 group-focus-within:text-green-400 transition-colors" />
+            <Search className="w-5 h-5 text-slate-400 group-focus-within:text-slate-300 transition-colors" />
             <input
               type="text"
               placeholder="Search creators, posts, challenges..."
@@ -103,7 +103,7 @@ const CreatorHubPage: React.FC = () => {
                 className="p-2 hover:bg-white/10 rounded-lg transition-colors relative group/filter"
                 title="Filter options"
               >
-                <Sliders className="w-5 h-5 text-slate-400 group-hover/filter:text-green-400 transition-colors" />
+                <Sliders className="w-5 h-5 text-slate-400 group-hover/filter:text-slate-300 transition-colors" />
               </button>
               
               {/* Filter Menu Dropdown */}
@@ -178,7 +178,7 @@ const CreatorHubPage: React.FC = () => {
           {/* Social Posts */}
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-              <MessageCircle className="w-6 h-6 text-blue-400" />
+              <MessageCircle className="w-6 h-6 text-slate-400" />
               Creator Feed
             </h2>
           

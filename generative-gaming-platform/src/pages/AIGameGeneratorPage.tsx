@@ -490,36 +490,25 @@ public class PlayerController : MonoBehaviour
   };
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
-      {/* Header Section - Full Width */}
-      <div className="w-full bg-gradient-to-r from-slate-900/80 via-purple-900/20 to-slate-900/80 backdrop-blur-xl border-b border-white/10 p-6 sm:p-8 lg:p-12 relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-transparent to-pink-500/5 pointer-events-none" />
-        
+    <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+      {/* Header */}
+      <div className="text-center relative">
         {/* Pharaoh Character - Right Aligned */}
-        <div className="absolute top-0 right-0 lg:right-12 hidden lg:block opacity-60 pointer-events-none">
-          <img 
-            src="/imgs/pharoh_character.png" 
-            alt="Pharaoh Character - AI Generator" 
-            className="w-40 h-40 xl:w-48 xl:h-48 object-contain filter drop-shadow-2xl"
-          />
-        </div>
-
-        {/* Header Content */}
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 flex items-center gap-3">
-            <Sparkles className="w-8 h-8 sm:w-10 sm:h-10 text-purple-400" />
-            AI Game Generator
-          </h1>
-          <p className="text-slate-300 text-lg sm:text-xl max-w-2xl">
-            Create fully playable games from simple text descriptions using our advanced AI technology
-          </p>
+        <div className="absolute top-0 right-0 lg:right-8 hidden lg:block">
+          <div className="relative">
+            <img 
+              src="/imgs/pharoh_character.png" 
+              alt="Pharaoh Character - AI Generator" 
+              className="w-32 h-32 xl:w-40 xl:h-40 object-contain hover:scale-110 transition-all duration-300 filter drop-shadow-2xl"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-500/20 to-transparent rounded-full"></div>
+          </div>
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="w-full p-4 sm:p-6 lg:p-8">
-        <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
+      {/* Generation Panel */}
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-6 lg:p-8">
           
           {/* Style Presets */}
           <div className="mb-6">
@@ -797,30 +786,25 @@ public class PlayerController : MonoBehaviour
         </div>
       )}
 
-      {/* Examples Section - Full Width */}
-      <div className="w-full bg-gradient-to-b from-slate-900/50 to-slate-800/50 p-6 sm:p-8 lg:p-12 border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8 flex items-center gap-3">
-            <Lightbulb className="w-8 h-8 text-yellow-400" />
-            Example Game Ideas
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {gameTemplates.map((template, index) => (
-              <div key={index} className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6 hover:border-white/20 transition-all group">
-                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-purple-300 transition-colors">{template.title}</h3>
-                <span className="bg-slate-700/50 text-slate-300 px-2 py-1 rounded text-xs mb-3 inline-block">
-                  {template.category}
-                </span>
-                <p className="text-slate-300 text-sm mb-4">{template.description}</p>
-                <button
-                  onClick={() => setPrompt(template.description)}
-                  className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium"
-                >
-                  Use This Idea
-                </button>
-              </div>
-            ))}
-          </div>
+      {/* Examples Section */}
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold text-white mb-6">Example Game Ideas</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {gameTemplates.map((template, index) => (
+            <div key={index} className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6">
+              <h3 className="text-lg font-semibold text-white mb-2">{template.title}</h3>
+              <span className="bg-slate-700/50 text-slate-300 px-2 py-1 rounded text-xs mb-3 inline-block">
+                {template.category}
+              </span>
+              <p className="text-slate-300 text-sm mb-4">{template.description}</p>
+              <button
+                onClick={() => setPrompt(template.description)}
+                className="text-cyan-400 hover:text-cyan-300 transition-colors text-sm font-medium"
+              >
+                Use This Idea
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
