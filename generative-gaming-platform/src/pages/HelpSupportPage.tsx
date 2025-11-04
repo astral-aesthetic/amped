@@ -14,7 +14,7 @@ const HelpSupportPage: React.FC = () => {
       id: 'getting-started',
       title: 'Getting Started',
       icon: BookOpen,
-      color: 'from-cyan-500 to-blue-600',
+      color: 'from-slate-700 to-slate-600',
       description: 'Learn the basics and create your first game',
       articles: [
         { title: 'What is Good Games?', excerpt: 'An AI-powered gaming platform that allows users to create games from simple text prompts...' },
@@ -26,7 +26,7 @@ const HelpSupportPage: React.FC = () => {
       id: 'credits',
       title: 'Credits & Economy',
       icon: Zap,
-      color: 'from-purple-500 to-pink-600',
+      color: 'from-slate-700 to-slate-600',
       description: 'Understand how credits work and earn more',
       articles: [
         { title: 'How does the credit system work?', excerpt: 'Credits are the platform currency used for playing, downloading, and generating games...' },
@@ -38,7 +38,7 @@ const HelpSupportPage: React.FC = () => {
       id: 'game-creation',
       title: 'Game Creation',
       icon: Lightbulb,
-      color: 'from-green-500 to-emerald-600',
+      color: 'from-slate-700 to-slate-600',
       description: 'Master game design with AI assistance',
       articles: [
         { title: 'What types of games can I create?', excerpt: 'Create action games, puzzles, strategy games, RPGs, arcade-style games, and more...' },
@@ -50,7 +50,7 @@ const HelpSupportPage: React.FC = () => {
       id: 'community',
       title: 'Creator Hub & Community',
       icon: Users,
-      color: 'from-orange-500 to-red-600',
+      color: 'from-slate-700 to-slate-600',
       description: 'Connect with other creators and collaborate',
       articles: [
         { title: 'How do I share my games?', excerpt: 'Games are automatically available on the platform and discoverable through search and categories...' },
@@ -62,7 +62,7 @@ const HelpSupportPage: React.FC = () => {
       id: 'achievements',
       title: 'Achievements & Leaderboards',
       icon: BookMarked,
-      color: 'from-yellow-500 to-amber-600',
+      color: 'from-slate-700 to-slate-600',
       description: 'Track progress and compete with the community',
       articles: [
         { title: 'How do achievements work?', excerpt: 'Unlock achievements automatically when meeting criteria, from beginner to legendary levels...' },
@@ -74,7 +74,7 @@ const HelpSupportPage: React.FC = () => {
       id: 'technical',
       title: 'Technical Support',
       icon: Headphones,
-      color: 'from-blue-500 to-indigo-600',
+      color: 'from-slate-700 to-slate-600',
       description: 'Troubleshoot issues and get technical help',
       articles: [
         { title: 'What platforms are supported?', excerpt: 'Web, Windows, Mac, and Mobile. AI optimizes for cross-platform compatibility...' },
@@ -350,8 +350,8 @@ const HelpSupportPage: React.FC = () => {
                 <button className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200">
                   Contact Support
                 </button>
-                <button className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
-                  Join Community
+                <button onClick={() => navigate('/gamer-hub')} className="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                  Search Hub
                 </button>
               </div>
             </div>
