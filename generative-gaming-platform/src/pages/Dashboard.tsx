@@ -510,12 +510,12 @@ const HomePage: React.FC = () => {
                           {/* Full-width Game Image */}
                           <div className="absolute inset-0 overflow-hidden">
                             <img
-                              src={(game as any)?.cover_image || (game as any)?.image || (game as any)?.thumbnail || '/api/placeholder/300/400'}
+                              src={(import.meta.env.BASE_URL || '/gg/') + ((game as any)?.cover_image || (game as any)?.image || (game as any)?.thumbnail || '').replace(/\/images\//g, '/imgs/').replace(/^\/+/, '') || (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg'}
                               alt={game.title}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                               onError={(e) => {
                                 const img = e.target as HTMLImageElement;
-                                img.src = '/api/placeholder/300/400';
+                                img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
                               }}
                             />
                             {/* Overlay - Always visible */}

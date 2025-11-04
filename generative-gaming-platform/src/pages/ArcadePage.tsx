@@ -534,12 +534,12 @@ const ArcadePage: React.FC = () => {
                       : 'bg-black'
                   }`}>
                     <img
-                      src={filteredGames[3].cover_image}
+                      src={(import.meta.env.BASE_URL || '/gg/') + (filteredGames[3].cover_image || '').replace(/\/images\//g, '/imgs/').replace(/^\/+/, '')}
                       alt={filteredGames[3].title}
                       className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
                       onError={(e) => {
                         const img = e.target as HTMLImageElement;
-                        img.src = '/api/placeholder/300/200';
+                        img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent"></div>
@@ -584,12 +584,12 @@ const ArcadePage: React.FC = () => {
                 {filteredGames[4] && (
                   <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-black col-span-1 sm:col-span-2 md:col-span-6 lg:col-span-4 min-h-[200px] sm:min-h-[240px] md:min-h-[260px]">
                     <img
-                      src={filteredGames[4].cover_image}
+                      src={(import.meta.env.BASE_URL || '/gg/') + (filteredGames[4].cover_image || '').replace(/\/images\//g, '/imgs/').replace(/^\/+/, '')}
                       alt={filteredGames[4].title}
                       className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
                       onError={(e) => {
                         const img = e.target as HTMLImageElement;
-                        img.src = '/api/placeholder/300/200';
+                        img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent"></div>
