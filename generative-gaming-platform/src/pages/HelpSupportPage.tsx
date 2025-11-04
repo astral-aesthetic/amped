@@ -339,8 +339,8 @@ const HelpSupportPage: React.FC = () => {
         <FadeInSection delay={400}>
           <div className="max-w-2xl mx-auto">
             <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-2xl border border-white/10 p-8 text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Headphones className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 bg-gradient-to-br from-slate-700 to-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Headphones className="w-8 h-8 text-slate-300" />
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Still need help?</h3>
               <p className="text-slate-400 mb-6">

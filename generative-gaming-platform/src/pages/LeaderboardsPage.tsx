@@ -1,11 +1,12 @@
 import React from 'react';
-import { Trophy, Medal, Crown, Users, Download, Star, Zap } from 'lucide-react';
+import { Trophy, Medal, Crown, Users, Download, Star, Zap, ArrowLeft } from 'lucide-react';
 import { useGameData } from '../contexts/GameDataContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProgressBar from '../components/ui/ProgressBar';
 
 const LeaderboardsPage: React.FC = () => {
   const { leaderboards } = useGameData();
+  const navigate = useNavigate();
   
   if (!leaderboards) {
     return (
@@ -151,6 +152,15 @@ const LeaderboardsPage: React.FC = () => {
 
   return (
     <div className="p-8 space-y-8">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-4"
+      >
+        <ArrowLeft className="w-5 h-5" />
+        <span>Back</span>
+      </button>
+
       {/* Leaderboard Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6 text-center">

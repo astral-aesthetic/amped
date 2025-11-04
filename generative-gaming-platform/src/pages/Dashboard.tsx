@@ -462,95 +462,6 @@ const HomePage: React.FC = () => {
         )}
       </FadeInSection>
 
-      {/* Favorite Games Carousel */}
-      <FadeInSection delay={300}>
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Heart className="w-6 h-6 text-slate-400" />
-            Favorite Games
-          </h2>
-          <div className="relative">
-            {/* Scrolling carousel container */}
-            <div className="overflow-x-auto pb-4 scrollbar-hide">
-              <div className="flex gap-6 min-w-min">
-                {favoriteGames.map(game => (
-                  <div key={game.game_id} className="flex-shrink-0 w-72">
-                    {/* Sleek Favorite Games Card */}
-                    <div className="group relative h-80 bg-black rounded-xl overflow-hidden transition-all duration-300 flex flex-col">
-                      {/* Full-width Game Image */}
-                      <div className="absolute inset-0 overflow-hidden">
-                        <img
-                          src={(game as any)?.cover_image || (game as any)?.image || (game as any)?.thumbnail || '/api/placeholder/300/400'}
-                          alt={game.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          onError={(e) => {
-                            const img = e.target as HTMLImageElement;
-                            img.src = '/api/placeholder/300/400';
-                          }}
-                        />
-                        {/* Overlay - Always visible */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                      
-                      {/* Content - Bottom Title */}
-                      <div className="relative p-4 flex flex-col justify-between h-full">
-                        {/* Stats Panel - Hover Reveal */}
-                        <div className="flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          {/* Rating */}
-                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
-                            <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
-                            <span className="text-white font-semibold">{((game as any)?.stats?.rating || game.rating || 4.8).toFixed(1)}</span>
-                            <span className="text-slate-300 text-sm ml-auto">({((game as any)?.stats?.total_ratings || 485)} ratings)</span>
-                          </div>
-                          
-                          {/* Downloads */}
-                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
-                            <Download className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                            <span className="text-white font-semibold">{((game as any)?.stats?.downloads ? (game as any).stats.downloads / 1000 : 15.2).toFixed(1)}K</span>
-                            <span className="text-slate-300 text-sm">Downloads</span>
-                          </div>
-                          
-                          {/* Plays */}
-                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
-                            <Play className="w-4 h-4 text-green-400 flex-shrink-0" />
-                            <span className="text-white font-semibold">{((game as any)?.stats?.plays ? (game as any).stats.plays / 1000 : 9.2).toFixed(1)}K</span>
-                            <span className="text-slate-300 text-sm">Plays</span>
-                          </div>
-                          
-                          {/* Favorites */}
-                          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
-                            <Heart className="w-4 h-4 text-pink-400 flex-shrink-0" />
-                            <span className="text-white font-semibold">{((game as any)?.stats?.favorites ? (game as any).stats.favorites / 1000 : 2.8).toFixed(1)}K</span>
-                            <span className="text-slate-300 text-sm">Favorites</span>
-                          </div>
-                        </div>
-
-                        {/* Title - Bottom Corner */}
-                        <h3 className="text-white font-bold text-lg line-clamp-2 drop-shadow-lg">
-                          {game.title}
-                        </h3>
-                      </div>
-                      
-                      {/* Play Button - Bottom Hover */}
-                      <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-2 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
-                          <Play className="w-4 h-4 fill-current" />
-                          Play Now
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Gradient overlays for scroll effect */}
-            <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-900 to-transparent pointer-events-none z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-900 to-transparent pointer-events-none z-10" />
-          </div>
-        </div>
-      </FadeInSection>
-
       {/* Featured & Trending Games Sections */}
       <FadeInSection delay={350}>
         <section id="games-section">
@@ -576,6 +487,95 @@ const HomePage: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* Favorite Games Carousel - After Featured Games */}
+          <div className="mt-12">
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <Heart className="w-6 h-6 text-slate-400" />
+                Favorite Games
+              </h2>
+              <div className="relative">
+                {/* Scrolling carousel container */}
+                <div className="overflow-x-auto pb-4 scrollbar-hide">
+                  <div className="flex gap-6 min-w-min">
+                    {favoriteGames.map(game => (
+                      <div key={game.game_id} className="flex-shrink-0 w-72">
+                        {/* Sleek Favorite Games Card */}
+                        <div className="group relative h-80 bg-black rounded-xl overflow-hidden transition-all duration-300 flex flex-col">
+                          {/* Full-width Game Image */}
+                          <div className="absolute inset-0 overflow-hidden">
+                            <img
+                              src={(game as any)?.cover_image || (game as any)?.image || (game as any)?.thumbnail || '/api/placeholder/300/400'}
+                              alt={game.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              onError={(e) => {
+                                const img = e.target as HTMLImageElement;
+                                img.src = '/api/placeholder/300/400';
+                              }}
+                            />
+                            {/* Overlay - Always visible */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          
+                          {/* Content - Bottom Title */}
+                          <div className="relative p-4 flex flex-col justify-between h-full">
+                            {/* Stats Panel - Hover Reveal */}
+                            <div className="flex flex-col gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              {/* Rating */}
+                              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 flex-shrink-0" />
+                                <span className="text-white font-semibold">{((game as any)?.stats?.rating || game.rating || 4.8).toFixed(1)}</span>
+                                <span className="text-slate-300 text-sm ml-auto">({((game as any)?.stats?.total_ratings || 485)} ratings)</span>
+                              </div>
+                              
+                              {/* Downloads */}
+                              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                                <Download className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                                <span className="text-white font-semibold">{((game as any)?.stats?.downloads ? (game as any).stats.downloads / 1000 : 15.2).toFixed(1)}K</span>
+                                <span className="text-slate-300 text-sm">Downloads</span>
+                              </div>
+                              
+                              {/* Plays */}
+                              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                                <Play className="w-4 h-4 text-green-400 flex-shrink-0" />
+                                <span className="text-white font-semibold">{((game as any)?.stats?.plays ? (game as any).stats.plays / 1000 : 9.2).toFixed(1)}K</span>
+                                <span className="text-slate-300 text-sm">Plays</span>
+                              </div>
+                              
+                              {/* Favorites */}
+                              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
+                                <Heart className="w-4 h-4 text-pink-400 flex-shrink-0" />
+                                <span className="text-white font-semibold">{((game as any)?.stats?.favorites ? (game as any).stats.favorites / 1000 : 2.8).toFixed(1)}K</span>
+                                <span className="text-slate-300 text-sm">Favorites</span>
+                              </div>
+                            </div>
+
+                            {/* Title - Bottom Corner */}
+                            <h3 className="text-white font-bold text-lg line-clamp-2 drop-shadow-lg">
+                              {game.title}
+                            </h3>
+                          </div>
+                          
+                          {/* Play Button - Bottom Hover */}
+                          <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold py-2 rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
+                              <Play className="w-4 h-4 fill-current" />
+                              Play Now
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Gradient overlays for scroll effect */}
+                <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-slate-900 to-transparent pointer-events-none z-10" />
+                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-slate-900 to-transparent pointer-events-none z-10" />
+              </div>
+            </div>
+          </div>
 
           {trendingGames.length > 0 && (
             <FadeInSection delay={400}>
