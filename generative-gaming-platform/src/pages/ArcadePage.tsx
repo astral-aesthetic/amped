@@ -155,15 +155,15 @@ const ArcadePage: React.FC = () => {
                   >
                     {/* Full-width image background */}
                     <div className="absolute inset-0">
-                      <img
-                        src={game.cover_image}
-                        alt={game.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          const img = e.target as HTMLImageElement;
-                          img.src = '/api/placeholder/300/200';
-                        }}
-                      />
+                  <img
+                    src={(import.meta.env.BASE_URL || '/gg/') + (game.cover_image || '').replace(/\/images\//g, '/imgs/').replace(/^\/+/, '')}
+                    alt={game.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
+                    }}
+                  />
                       {/* Dynamic overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
@@ -386,12 +386,12 @@ const ArcadePage: React.FC = () => {
                 {filteredGames[0] && (
                   <section className="relative group overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-black col-span-1 sm:col-span-2 md:col-span-6 lg:col-span-8 min-h-[320px] sm:min-h-[360px] md:min-h-[460px]">
                     <img
-                      src={filteredGames[0].cover_image}
+                      src={(import.meta.env.BASE_URL || '/gg/') + (filteredGames[0].cover_image || '').replace(/\/images\//g, '/imgs/').replace(/^\/+/, '')}
                       alt={filteredGames[0].title}
                       className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
                       onError={(e) => {
                         const img = e.target as HTMLImageElement;
-                        img.src = '/api/placeholder/300/200';
+                        img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
@@ -480,12 +480,12 @@ const ArcadePage: React.FC = () => {
                 {filteredGames[2] && (
                   <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-black col-span-1 md:col-span-3 lg:col-span-4 min-h-[200px] sm:min-h-[240px] md:min-h-[260px]">
                     <img
-                      src={filteredGames[2].cover_image}
+                      src={(import.meta.env.BASE_URL || '/gg/') + (filteredGames[2].cover_image || '').replace(/\/images\//g, '/imgs/').replace(/^\/+/, '')}
                       alt={filteredGames[2].title}
                       className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
                       onError={(e) => {
                         const img = e.target as HTMLImageElement;
-                        img.src = '/api/placeholder/300/200';
+                        img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
                       }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent"></div>
