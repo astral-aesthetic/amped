@@ -233,9 +233,13 @@ const CreatorHubPage: React.FC = () => {
                   {post.media_urls && post.media_urls.length > 0 && (
                     <div className="mb-4">
                       <img 
-                        src={post.media_urls[0]} 
+                        src={(import.meta.env.BASE_URL || '/gg/') + (post.media_urls[0] || '').replace(/^\/+/, '')} 
                         alt="Post media"
                         className="w-full max-w-md rounded-lg border border-white/20"
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
+                        }}
                       />
                     </div>
                   )}

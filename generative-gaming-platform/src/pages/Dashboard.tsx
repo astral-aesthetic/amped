@@ -308,9 +308,13 @@ const HomePage: React.FC = () => {
               <div className="w-full h-72 lg:h-96 bg-gradient-to-br from-slate-800 to-slate-700 rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden shadow-2xl">
                 {(featuredGames[0] as any)?.cover_image || (featuredGames[0] as any)?.image || (featuredGames[0] as any)?.thumbnail ? (
                   <img
-                    src={(featuredGames[0] as any)?.cover_image || (featuredGames[0] as any)?.image || (featuredGames[0] as any)?.thumbnail}
+                    src={(import.meta.env.BASE_URL || '/gg/') + ((featuredGames[0] as any)?.cover_image || (featuredGames[0] as any)?.image || (featuredGames[0] as any)?.thumbnail || '').replace(/^\/+/, '')}
                     alt={featuredGames[0]?.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      const img = e.target as HTMLImageElement;
+                      img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
+                    }}
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center gap-2 text-slate-500">
