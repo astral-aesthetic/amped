@@ -105,7 +105,7 @@
         "last_updated": "2025-08-30T15:45:00Z",
         "version": "1.2.8",
         "tags": ["retro", "8bit", "shooter", "arcade", "pixel-art"],
-        "cover_image": "/imgs/retro_blast_arena_clean.png",
+        "cover_image": "/images/retro_blast_arena_clean.png",
         "screenshots": [
           "https://cdn.gameplatform.com/games/retro-blast/screen1.jpg",
           "https://cdn.gameplatform.com/games/retro-blast/screen2.jpg"

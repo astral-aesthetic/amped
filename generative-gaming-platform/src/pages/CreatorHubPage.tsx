@@ -106,9 +106,9 @@ const CreatorHubPage: React.FC = () => {
                 <Sliders className="w-5 h-5 text-slate-400 group-hover/filter:text-slate-300 transition-colors" />
               </button>
               
-              {/* Filter Menu Dropdown */}
-              {showFilterMenu && (
-                <div className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-slate-900 to-slate-800 backdrop-blur-xl rounded-xl border border-white/10 p-4 z-50 shadow-xl">
+                {/* Filter Menu Dropdown */}
+                {showFilterMenu && (
+                  <div className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-slate-900 to-slate-800 backdrop-blur-xl rounded-xl border border-white/10 p-4 z-[9999] shadow-2xl">
                   <p className="text-slate-300 text-sm font-semibold mb-3">Filter By Type</p>
                   <div className="space-y-2">
                     {[
