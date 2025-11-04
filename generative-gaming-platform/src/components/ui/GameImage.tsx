@@ -28,6 +28,7 @@ const GameImage: React.FC<GameImageProps> = ({
   };
 
   const handleImageError = () => {
+    console.warn(`Failed to load image: ${src}`);
     setImageError(true);
   };
 
@@ -44,24 +45,23 @@ const GameImage: React.FC<GameImageProps> = ({
     '/imgs/futuristic_cyberpunk_neon_gaming_logo_transparent.png'
   ];
 
-  // Select fallback based on title hash to ensure consistency
-  const fallbackIndex = title ? Math.abs(title.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % fallbackImages.length : 0;
-  const baseUrl = import.meta.env.BASE_URL || '/';
-  const fallbackSrc = baseUrl + fallbackImages[fallbackIndex].replace(/^\//, '');
+  // Get base URL from environment or use /gg/ as fallback for GitHub Pages
+  const baseUrl = import.meta.env.BASE_URL || '/gg/';
 
-  // Ensure image src is properly formatted and handles both /imgs/ and /images/ paths
+  // Construct proper URLs with base path
   const normalizedSrc = useMemo(() => {
     if (!src) return null;
-    // Convert /images/ to /imgs/ for consistency
-    let normalized = src.replace('/images/', '/imgs/');
-    // Ensure it starts with /
-    if (!normalized.startsWith('/')) {
-      normalized = '/' + normalized;
-    }
-    // Add base URL for proper asset resolution in production
-    const baseUrl = import.meta.env.BASE_URL || '/';
-    return baseUrl + normalized.replace(/^\//, '');
-  }, [src]);
+    // Normalize the path
+    let normalized = src.replace(/\/images\//g, '/imgs/');
+    // Remove leading slash for proper concatenation
+    normalized = normalized.replace(/^\/+/, '');
+    // Combine with base URL
+    return baseUrl + normalized;
+  }, [src, baseUrl]);
+
+  // Select fallback based on title hash
+  const fallbackIndex = title ? Math.abs(title.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % fallbackImages.length : 0;
+  const fallbackSrc = baseUrl + fallbackImages[fallbackIndex].replace(/^\/+/, '');
 
   return (
     <div className={`${aspectClasses[aspectRatio]} overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 ${className}`}>
@@ -89,7 +89,6 @@ const GameImage: React.FC<GameImageProps> = ({
             alt={alt}
             className="w-full h-full object-cover opacity-70"
             onError={(e) => {
-              // If fallback also fails, hide the image element
               e.currentTarget.style.display = 'none';
             }}
           />

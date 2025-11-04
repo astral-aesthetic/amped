@@ -200,7 +200,7 @@ const SettingsPage: React.FC = () => {
                       { label: 'Game Plays', description: 'Notify me when someone plays my game' },
                       { label: 'Comments & Ratings', description: 'Notify me of new comments and ratings' },
                       { label: 'Follower Updates', description: 'Notify me when someone follows me' },
-                      { label: 'Creator Hub Activity', description: 'Notify me of updates in Creator Hub' },
+                      { label: 'Gamer Hub Activity', description: 'Notify me of updates in Gamer Hub' },
                       { label: 'Challenges & Events', description: 'Notify me about new challenges and events' },
                       { label: 'Marketing Emails', description: 'Send me promotional content and updates' }
                     ].map((item, idx) => (

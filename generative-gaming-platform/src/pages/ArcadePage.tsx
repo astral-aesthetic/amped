@@ -65,12 +65,12 @@ const ArcadePage: React.FC = () => {
               {filteredGames.length > 0 && (
                 <div className="w-full lg:w-64 h-48 lg:h-56 flex-shrink-0">
                   <img
-                    src={filteredGames[0].cover_image}
+                    src={(import.meta.env.BASE_URL || '/gg/') + (filteredGames[0].cover_image || '').replace(/^\/+/, '')}
                     alt={filteredGames[0].title}
                     className="w-full h-full object-cover rounded-xl border border-white/10"
                     onError={(e) => {
                       const img = e.target as HTMLImageElement;
-                      img.src = '/api/placeholder/300/200';
+                      img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
                     }}
                   />
                 </div>
@@ -265,7 +265,7 @@ const ArcadePage: React.FC = () => {
                 className="flex-1 bg-transparent text-white placeholder-slate-500 focus:outline-none"
               />
               {/* Filter Button */}
-              <div className="relative">
+              <div className="relative z-50">
                 <button
                   type="button"
                   onClick={() => setShowFilterMenu(!showFilterMenu)}
@@ -277,7 +277,7 @@ const ArcadePage: React.FC = () => {
                 
                 {/* Filter Menu Dropdown */}
                 {showFilterMenu && (
-                  <div className="absolute right-0 mt-2 w-56 bg-gradient-to-br from-slate-900 to-slate-800 backdrop-blur-xl rounded-xl border border-white/10 p-4 z-50 shadow-xl">
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-gradient-to-br from-slate-900 to-slate-800 backdrop-blur-xl rounded-xl border border-white/10 p-4 z-[9999] shadow-2xl">
                     {/* Sort Options */}
                     <div className="mb-4">
                       <p className="text-slate-300 text-sm font-semibold mb-2">Sort By</p>

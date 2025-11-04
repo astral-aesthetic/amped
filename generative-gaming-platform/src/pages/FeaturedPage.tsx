@@ -107,7 +107,7 @@ const FeaturedPage: React.FC = () => {
                       
                       <div>
                         <img 
-                          src={featuredGames[0].cover_image || '/api/placeholder/500/300'} 
+                          src={(import.meta.env.BASE_URL || '/gg/') + (featuredGames[0].cover_image || '').replace(/^\/+/, '')} 
                           alt={featuredGames[0].title}
                           className="w-full rounded-xl border border-white/20 shadow-2xl"
                         />

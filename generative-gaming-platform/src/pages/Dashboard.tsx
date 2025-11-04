@@ -94,7 +94,7 @@ const HomePage: React.FC = () => {
     { icon: Sparkles, label: 'Generate Game', path: '/generate', color: 'from-purple-500 to-pink-500', iconHoverColor: '#ec4899' },
     { icon: Coins, label: 'Pricing Guide', path: '/pricing', color: 'from-yellow-500 to-orange-500', iconHoverColor: '#f97316' },
     { icon: Gamepad, label: 'Arcade', path: '/arcade', color: 'from-orange-500 to-red-500', iconHoverColor: '#ef4444' },
-    { icon: Gamepad2, label: 'Creator Hub', path: '/creator-hub', color: 'from-yellow-500 to-orange-500', iconHoverColor: '#f97316' },
+    { icon: Gamepad2, label: 'Gamer Hub', path: '/creator-hub', color: 'from-yellow-500 to-orange-500', iconHoverColor: '#f97316' },
     { icon: Settings, label: 'Settings', path: '/settings', color: 'from-blue-500 to-cyan-500', iconHoverColor: '#06b6d4' }
   ];
 

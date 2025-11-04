@@ -34,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
     { icon: LayoutDashboard, label: 'My Dashboard', path: '/', color: 'text-cyan-400' },
     { icon: Gamepad2, label: 'Arcade', path: '/games', color: 'text-indigo-400' },
     { icon: Wand2, label: 'AI Game Generator', path: '/generate', color: 'text-purple-400' },
-    { icon: Users, label: 'Creator Hub', path: '/community', color: 'text-green-400' },
+    { icon: Users, label: 'Gamer Hub', path: '/community', color: 'text-green-400' },
     { icon: Settings, label: 'Settings', path: '/settings', color: 'text-blue-400' },
     { icon: HelpCircle, label: 'Help & Support', path: '/help', color: 'text-gray-400' }
   ];

@@ -17,8 +17,8 @@ const CreatorHubPage: React.FC = () => {
       <div className="p-8 flex items-center justify-center min-h-96">
         <div className="text-center">
           <Users className="w-16 h-16 text-slate-400 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-white mb-2">Loading Creator Hub...</h2>
-          <p className="text-slate-400">Please wait while we load creator hub data</p>
+          <h2 className="text-xl font-semibold text-white mb-2">Loading Gamer Hub...</h2>
+          <p className="text-slate-400">Please wait while we load gamer hub data</p>
         </div>
       </div>
     );
@@ -144,7 +144,7 @@ const CreatorHubPage: React.FC = () => {
         </div>
       </FadeInSection>
 
-      {/* Creator Hub Stats */}
+      {/* Gamer Hub Stats */}
       <FadeInSection delay={50}>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-6 text-center">
