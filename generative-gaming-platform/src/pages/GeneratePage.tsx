@@ -94,7 +94,7 @@ const GeneratePage: React.FC = () => {
 
   const motionPresets = ['None', '90s Retro', 'CGI', 'Comic', 'Claymation', 'Dark Fantasy', 'Digital Painting', 'Dreamcore', 'Felted', 'Line Art', 'Moody', 'Pixel', 'Paper', 'Puppeteer', 'Realistic'];
 
-  const themePresets = ['None', 'Clay', 'Sketch', 'Papercraft', 'Sci-Fi'];
+  const themePresets = ['None', 'Clay', 'Sketch', 'Papercraft', 'Sci-Fi', 'Pixel'];
 
   const lightingPresets = ['None', 'Bioluminescent', 'Candle Lit', 'Fog', 'Golden Hour', 'Noir', 'Psychedelic', 'Mystical', 'Hard Light', 'Silhouette'];
 

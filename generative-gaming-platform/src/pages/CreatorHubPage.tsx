@@ -279,6 +279,13 @@ const CreatorHubPage: React.FC = () => {
                 Load More Posts
               </button>
             )}
+            
+            {/* Loading More Message */}
+            {displayedPosts >= community.social_posts.length && community.social_posts.length > 0 && (
+              <div className="mt-8 text-center">
+                <p className="text-slate-400 text-sm">No more posts to load</p>
+              </div>
+            )}
           </div>
           </div>
           
