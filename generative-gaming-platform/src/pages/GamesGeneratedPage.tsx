@@ -54,61 +54,6 @@ const GamesGeneratedPage: React.FC = () => {
         </div>
       </FadeInSection>
 
-      {/* Stats Row - Moved below search */}
-      <FadeInSection delay={100}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <p className="text-slate-400 text-sm">Total Generated</p>
-                <p className="text-white font-bold text-xl">{allGeneratedGames.length}</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <p className="text-slate-400 text-sm">Trending This Week</p>
-                <p className="text-white font-bold text-xl">{Math.floor(allGeneratedGames.length * 0.3)}</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                <Star className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <p className="text-slate-400 text-sm">Avg Rating</p>
-                <p className="text-white font-bold text-xl">
-                  {(allGeneratedGames.reduce((sum, g) => sum + (g.stats.rating || 0), 0) / allGeneratedGames.length).toFixed(1)}
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
-                <Trophy className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <p className="text-slate-400 text-sm">Featured Games</p>
-                <p className="text-white font-bold text-xl">{Math.floor(allGeneratedGames.length * 0.2)}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </FadeInSection>
-
       {/* Search and Filter Section */}
       <FadeInSection delay={100}>
         <div className="flex justify-center">
@@ -248,6 +193,61 @@ const GamesGeneratedPage: React.FC = () => {
           </div>
         </FadeInSection>
       )}
+
+      {/* Stats Row */}
+      <FadeInSection delay={100}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-slate-400 text-sm">Total Generated</p>
+                <p className="text-white font-bold text-xl">{allGeneratedGames.length}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-slate-400 text-sm">Trending This Week</p>
+                <p className="text-white font-bold text-xl">{Math.floor(allGeneratedGames.length * 0.3)}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                <Star className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-slate-400 text-sm">Avg Rating</p>
+                <p className="text-white font-bold text-xl">
+                  {(allGeneratedGames.reduce((sum, g) => sum + (g.stats.rating || 0), 0) / allGeneratedGames.length).toFixed(1)}
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 backdrop-blur-xl rounded-xl border border-white/10 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <p className="text-slate-400 text-sm">Featured Games</p>
+                <p className="text-white font-bold text-xl">{Math.floor(allGeneratedGames.length * 0.2)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </FadeInSection>
 
       {/* Games Grid - Masonic Layout */}
       <FadeInSection delay={150}>
