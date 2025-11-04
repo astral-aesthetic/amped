@@ -179,7 +179,7 @@ const CreatorHubPage: React.FC = () => {
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
               <MessageCircle className="w-6 h-6 text-slate-400" />
-              Creator Feed
+              Gamer's Feed
             </h2>
           
           <div className="space-y-6">
@@ -190,9 +190,13 @@ const CreatorHubPage: React.FC = () => {
                   {/* Post Header */}
                   <div className="flex items-center gap-3 mb-4">
                     <img 
-                      src={author?.avatar_url || '/api/placeholder/40/40'} 
+                      src={(import.meta.env.BASE_URL || '/gg/') + (author?.avatar_url || '').replace(/^\/+/, '') || (import.meta.env.BASE_URL || '/gg/') + 'api/placeholder/40/40'} 
                       alt={author?.display_name || post.username}
                       className="w-10 h-10 rounded-full border border-white/20"
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
+                      }}
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2">

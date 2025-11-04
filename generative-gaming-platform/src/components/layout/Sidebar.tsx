@@ -122,9 +122,13 @@ const Sidebar: React.FC<SidebarProps> = ({ onCollapseChange }) => {
                       title="Click to go to Settings"
                     >
                       <img 
-                        src={user.avatar_url || '/api/placeholder/48/48'} 
+                        src={(import.meta.env.BASE_URL || '/gg/') + (user.avatar_url || '').replace(/^\/+/, '') || (import.meta.env.BASE_URL || '/gg/') + 'api/placeholder/48/48'} 
                         alt={user.display_name}
                         className="w-full h-full object-cover"
+                        onError={(e) => {
+                          const img = e.target as HTMLImageElement;
+                          img.src = (import.meta.env.BASE_URL || '/gg/') + 'imgs/dark-cyberpunk-city-neon-gaming-background.jpg';
+                        }}
                       />
                     </button>
                     <div className="flex-1 min-w-0">
