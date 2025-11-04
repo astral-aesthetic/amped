@@ -20,7 +20,7 @@
         "verified": true,
         "tier": "creator_pro",
         "stats": {
-          "games_created": 12,
+          "games_created": 5,
           "total_downloads": 15670,
           "total_plays": 45230,
           "credits_earned": 187500,
@@ -104,15 +104,15 @@
       {
         "user_id": "usr_003",
         "username": "RetroGamer_2k",
-        "display_name": "Jordan Kim",
-        "email": "jordan.kim.2k@email.com",
-        "avatar_url": "/imgs/profiles/jordan_kim_profile.jpg",
+        "display_name": "Lisa Jordan",
+        "email": "lisa.jordan.2k@email.com",
+        "avatar_url": "/imgs/profiles/lisa_jordan_profile.jpg",
         "registration_date": "2023-11-08T12:00:00Z",
         "last_active": "2025-08-25T15:30:00Z",
         "verified": false,
         "tier": "creator_standard",
         "stats": {
-          "games_created": 6,
+          "games_created": 3,
           "total_downloads": 8920,
           "total_plays": 22340,
           "credits_earned": 89200,
@@ -144,7 +144,7 @@
         "verified": true,
         "tier": "creator_pro",
         "stats": {
-          "games_created": 15,
+          "games_created": 1,
           "total_downloads": 12340,
           "total_plays": 38750,
           "credits_earned": 123400,
